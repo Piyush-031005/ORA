@@ -7,27 +7,33 @@ import { useLanguage } from '@/context/LanguageContext';
 const REVIEWS = [
   {
     text: {
-      en: "I was terrified of the dentist for years until I found ORA. Dr. Sharma's approach was so gentle and professional. The entire experience felt more like a spa visit than a dental appointment.",
-      hi: "ORA मिलने से पहले मैं सालों तक डेंटिस्ट से डरती थी। डॉ. शर्मा का दृष्टिकोण बहुत कोमल और पेशेवर था। पूरा अनुभव दंत चिकित्सा की नियुक्ति के बजाय स्पा यात्रा जैसा लगा।"
+      en: "I was terrified of the dentist for years until I found ORA. Dr. Sharma's approach was so gentle and professional.",
+      hi: "ORA मिलने से पहले मैं सालों तक डेंटिस्ट से डरती थी। डॉ. शर्मा का दृष्टिकोण बहुत कोमल और पेशेवर था।"
     },
     author: "Neha Kapoor",
-    treatment: "Full Mouth Rehabilitation"
+    treatment: "Full Mouth Rehabilitation",
+    beforeImage: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=400&auto=format&fit=crop",
+    afterImage: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=400&auto=format&fit=crop"
   },
   {
     text: {
-      en: "The precision is unmatched. My implant procedure was completely painless, and the recovery was incredibly fast. The technology they use here is truly next level.",
-      hi: "सटीकता बेजोड़ है। मेरी प्रत्यारोपण प्रक्रिया पूरी तरह से दर्द रहित थी, और रिकवरी अविश्वसनीय रूप से तेज थी। वे यहां जिस तकनीक का उपयोग करते हैं वह वास्तव में अगले स्तर की है।"
+      en: "The precision is unmatched. My implant procedure was completely painless, and the recovery was incredibly fast.",
+      hi: "सटीकता बेजोड़ है। मेरी प्रत्यारोपण प्रक्रिया पूरी तरह से दर्द रहित थी, और रिकवरी अविश्वसनीय रूप से तेज थी।"
     },
     author: "Vikram Singh",
-    treatment: "Dental Implants"
+    treatment: "Dental Implants",
+    beforeImage: "https://images.unsplash.com/photo-1598256989800-fea5f95b5cf4?q=80&w=400&auto=format&fit=crop",
+    afterImage: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?q=80&w=400&auto=format&fit=crop"
   },
   {
     text: {
-      en: "I couldn't stop smiling after my veneers were done. Dr. Patel listened to exactly what I wanted and delivered results that exceeded my expectations. Worth every penny.",
-      hi: "मेरे विनियर बन जाने के बाद मैं मुस्कुराना बंद नहीं कर सका। डॉ. पटेल ने ठीक वही सुना जो मैं चाहता था और ऐसे परिणाम दिए जो मेरी उम्मीदों से अधिक थे।"
+      en: "I couldn't stop smiling after my veneers were done. Dr. Patel delivered results that exceeded my expectations.",
+      hi: "मेरे विनियर बन जाने के बाद मैं मुस्कुराना बंद नहीं कर सका। डॉ. पटेल ने उम्मीदों से बेहतर परिणाम दिए।"
     },
     author: "Aisha Desai",
-    treatment: "Porcelain Veneers"
+    treatment: "Porcelain Veneers",
+    beforeImage: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=400&auto=format&fit=crop",
+    afterImage: "https://images.unsplash.com/photo-1522845015757-50bce044e5da?q=80&w=400&auto=format&fit=crop"
   }
 ];
 
@@ -69,34 +75,41 @@ export default function Reviews() {
           {REVIEWS.map((review, i) => (
             <div 
               key={i}
-              className="bg-[var(--bg-cream)] rounded-[32px] border border-[var(--border-light)] relative overflow-hidden flex flex-col"
+              className="bg-[var(--bg-cream)] rounded-[32px] border border-[var(--border-light)] relative overflow-hidden flex flex-col shadow-sm"
               style={{
                 opacity: inView ? 1 : 0,
                 transform: inView ? 'none' : 'translateY(40px)',
                 transition: `all 0.8s var(--ease-smooth) ${i * 0.15}s`,
               }}
             >
-              {/* Before/After Images */}
-              <div className="grid grid-cols-2 gap-1 p-2 bg-white">
-                <div className="relative aspect-[4/3] rounded-tl-[24px] overflow-hidden bg-gray-200">
-                  <img src={`https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=400&auto=format&fit=crop`} alt="Before" className="w-full h-full object-cover grayscale opacity-80" />
-                  <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-widest text-white bg-black/50 px-2 py-0.5 rounded-full">Before</span>
+              {/* Before/After Images - Top Section */}
+              <div className="flex w-full h-[180px] bg-gray-100 p-1">
+                <div className="w-1/2 relative rounded-l-[28px] overflow-hidden group">
+                  <img src={review.beforeImage} alt="Before" className="w-full h-full object-cover grayscale opacity-90 transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute top-3 left-3 bg-black/60 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full backdrop-blur-md">
+                    Before
+                  </div>
                 </div>
-                <div className="relative aspect-[4/3] rounded-tr-[24px] overflow-hidden bg-gray-200">
-                  <img src={`https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=400&auto=format&fit=crop`} alt="After" className="w-full h-full object-cover" />
-                  <span className="absolute bottom-2 right-2 text-[9px] uppercase tracking-widest text-white bg-[#B81104]/80 px-2 py-0.5 rounded-full">After</span>
+                <div className="w-1/2 relative rounded-r-[28px] overflow-hidden group ml-1">
+                  <img src={review.afterImage} alt="After" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute top-3 right-3 bg-[#B81104]/90 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full backdrop-blur-md">
+                    After
+                  </div>
                 </div>
               </div>
 
-              {/* Review Content */}
-              <div className="p-8 flex-1 flex flex-col relative">
-                <div className="text-[#B81104] font-serif text-[60px] leading-none absolute top-4 left-6 opacity-20">
-                  &ldquo;
+              {/* Review Content - Bottom Section */}
+              <div className="p-8 flex-1 flex flex-col justify-between">
+                <div className="relative">
+                  <span className="text-[#B81104] font-serif text-[48px] leading-none absolute -top-4 -left-2 opacity-20">
+                    &ldquo;
+                  </span>
+                  <p className="text-[15px] text-[var(--text-dark)] leading-relaxed italic z-10 relative pt-2">
+                    "{lang === 'en' ? review.text.en : review.text.hi}"
+                  </p>
                 </div>
-                <p className="text-[15px] text-[var(--text-dark)] leading-relaxed relative z-10 mb-8 pt-8 italic flex-1">
-                  "{lang === 'en' ? review.text.en : review.text.hi}"
-                </p>
-                <div className="pt-6 border-t border-[var(--border-light)] relative z-10">
+                
+                <div className="pt-6 mt-6 border-t border-[var(--border-light)]">
                   <div className="font-serif font-bold text-[18px] text-[var(--text-dark)] mb-1">
                     {review.author}
                   </div>

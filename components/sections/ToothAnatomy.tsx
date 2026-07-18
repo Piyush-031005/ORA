@@ -2,7 +2,7 @@
 
 import { useRef, useState, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Html, Environment, AdaptiveDpr, OrbitControls } from '@react-three/drei';
+import { useGLTF, Html, Environment, AdaptiveDpr, OrbitControls, Bounds } from '@react-three/drei';
 import * as THREE from 'three';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -37,7 +37,7 @@ function TreatmentModel({ hovered, setHovered }: {
   });
 
   return (
-    <group ref={group} scale={[1.2, 1.2, 1.2]}>
+    <group ref={group}>
       <primitive object={cloned} />
       {/* Annotation dots */}
       {TREATMENTS.map((part) => (
@@ -79,8 +79,11 @@ function AnatomyScene({ hovered, setHovered }: { hovered: string | null; setHove
       <directionalLight intensity={2.5} color="#ffffff" position={[5, 8, 5]} />
       <pointLight color="#B81104" intensity={2} distance={10} position={[-3, 2, -3]} />
       
-      <TreatmentModel hovered={hovered} setHovered={setHovered} />
-      <OrbitControls enableZoom={false} enablePan={false} autoRotate={!hovered} autoRotateSpeed={0.8} />
+      <Bounds fit clip observe margin={1.2}>
+        <TreatmentModel hovered={hovered} setHovered={setHovered} />
+      </Bounds>
+      
+      <OrbitControls makeDefault enableZoom={false} enablePan={false} autoRotate={!hovered} autoRotateSpeed={0.8} />
       
       <Environment preset="studio" />
       <AdaptiveDpr pixelated />
