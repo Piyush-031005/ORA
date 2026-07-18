@@ -42,7 +42,7 @@ function ToothModel({ scrollY }: { scrollY: number }) {
 
   return (
     <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.2}>
-      <group ref={group} scale={[2.0, 2.0, 2.0]} position={[0, -0.4, 0]}>
+      <group ref={group} scale={[1.2, 1.2, 1.2]} position={[0, -0.2, 0]}>
         <primitive object={cloned} />
       </group>
     </Float>

@@ -69,25 +69,40 @@ export default function Reviews() {
           {REVIEWS.map((review, i) => (
             <div 
               key={i}
-              className="bg-[var(--bg-cream)] p-8 rounded-[32px] border border-[var(--border-light)] relative"
+              className="bg-[var(--bg-cream)] rounded-[32px] border border-[var(--border-light)] relative overflow-hidden flex flex-col"
               style={{
                 opacity: inView ? 1 : 0,
                 transform: inView ? 'none' : 'translateY(40px)',
                 transition: `all 0.8s var(--ease-smooth) ${i * 0.15}s`,
               }}
             >
-              <div className="text-[#B81104] font-serif text-[60px] leading-none absolute top-6 left-6 opacity-20">
-                &ldquo;
-              </div>
-              <p className="text-[15px] text-[var(--text-dark)] leading-relaxed relative z-10 mb-8 pt-4 italic">
-                "{lang === 'en' ? review.text.en : review.text.hi}"
-              </p>
-              <div className="pt-6 border-t border-[var(--border-light)] relative z-10">
-                <div className="font-serif font-bold text-[18px] text-[var(--text-dark)] mb-1">
-                  {review.author}
+              {/* Before/After Images */}
+              <div className="grid grid-cols-2 gap-1 p-2 bg-white">
+                <div className="relative aspect-[4/3] rounded-tl-[24px] overflow-hidden bg-gray-200">
+                  <img src={`https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=400&auto=format&fit=crop`} alt="Before" className="w-full h-full object-cover grayscale opacity-80" />
+                  <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-widest text-white bg-black/50 px-2 py-0.5 rounded-full">Before</span>
                 </div>
-                <div className="text-[11px] uppercase tracking-widest text-[#B81104]">
-                  {review.treatment}
+                <div className="relative aspect-[4/3] rounded-tr-[24px] overflow-hidden bg-gray-200">
+                  <img src={`https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=400&auto=format&fit=crop`} alt="After" className="w-full h-full object-cover" />
+                  <span className="absolute bottom-2 right-2 text-[9px] uppercase tracking-widest text-white bg-[#B81104]/80 px-2 py-0.5 rounded-full">After</span>
+                </div>
+              </div>
+
+              {/* Review Content */}
+              <div className="p-8 flex-1 flex flex-col relative">
+                <div className="text-[#B81104] font-serif text-[60px] leading-none absolute top-4 left-6 opacity-20">
+                  &ldquo;
+                </div>
+                <p className="text-[15px] text-[var(--text-dark)] leading-relaxed relative z-10 mb-8 pt-8 italic flex-1">
+                  "{lang === 'en' ? review.text.en : review.text.hi}"
+                </p>
+                <div className="pt-6 border-t border-[var(--border-light)] relative z-10">
+                  <div className="font-serif font-bold text-[18px] text-[var(--text-dark)] mb-1">
+                    {review.author}
+                  </div>
+                  <div className="text-[11px] uppercase tracking-widest text-[#B81104]">
+                    {review.treatment}
+                  </div>
                 </div>
               </div>
             </div>

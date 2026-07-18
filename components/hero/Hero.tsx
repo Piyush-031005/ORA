@@ -36,14 +36,14 @@ export default function Hero() {
               </span>
             </div>
 
-            <h1 className="display-2xl text-[var(--text-dark)] mb-4 md:mb-6 leading-[1.05]">
-              <span className="block">
+            <h1 className="display-2xl text-[var(--text-dark)] mb-4 md:mb-6 leading-[1.15]">
+              <span className="block mb-2">
                 {t('A smile', 'एक मुस्कान')}
               </span>
-              <span className="block italic text-[var(--text-gray)]">
+              <span className="block italic text-[var(--text-gray)] mb-4">
                 {t('carefully', 'ध्यान से')}
               </span>
-              <span className="inline-block bg-[#B81104] text-white px-4 py-1 md:px-6 md:py-2 mt-2 font-serif italic" style={{ paddingBottom: '0.2em' }}>
+              <span className="inline-block bg-[#B81104] text-white px-4 py-1 md:px-6 md:py-2 mt-2 font-serif italic align-bottom" style={{ paddingBottom: '0.2em' }}>
                 {t('rebuilt.', 'बनाई गई।')}
               </span>
             </h1>

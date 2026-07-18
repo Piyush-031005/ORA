@@ -7,10 +7,10 @@ import * as THREE from 'three';
 import { useLanguage } from '@/context/LanguageContext';
 
 const TREATMENTS = [
-  { name: { en: 'Root Canal Therapy', hi: 'रूट कैनाल थेरेपी' }, color: '#B81104', description: { en: 'Pain-free extraction of infected pulp, saving your natural tooth.', hi: 'संक्रमित पल्प को दर्द-मुक्त निकालना, आपके प्राकृतिक दांत को बचाना।' }, position: [0, 0, 0] as [number, number, number] },
-  { name: { en: 'Dental Crowns', hi: 'दंत मुकुट (क्राउन)' }, color: '#1E3A5F', description: { en: 'Custom porcelain caps to restore strength and aesthetics.', hi: 'ताकत और सौंदर्य को बहाल करने के लिए कस्टम चीनी मिट्टी के कैप।' }, position: [0, 0.9, 0] as [number, number, number] },
-  { name: { en: 'Dental Implants', hi: 'दंत प्रत्यारोपण (इंप्लांट)' }, color: '#F59E0B', description: { en: 'Permanent titanium anchors for missing teeth replacement.', hi: 'गायब दांतों को बदलने के लिए स्थायी टाइटेनियम एंकर।' }, position: [-0.3, -0.7, 0] as [number, number, number] },
-  { name: { en: 'Gum Contouring', hi: 'मसूड़ों का समोच्च' }, color: '#10B981', description: { en: 'Laser-assisted reshaping for a perfectly balanced smile.', hi: 'पूरी तरह से संतुलित मुस्कान के लिए लेजर-सहायता प्राप्त नया आकार देना।' }, position: [-0.5, -0.3, 0] as [number, number, number] },
+  { name: { en: 'Root Canal Therapy', hi: 'रूट कैनाल थेरेपी' }, color: '#B81104', description: { en: 'Pain-free extraction of infected pulp, saving your natural tooth.', hi: 'संक्रमित पल्प को दर्द-मुक्त निकालना, आपके प्राकृतिक दांत को बचाना।' }, position: [0.1, -0.2, 0.1] as [number, number, number] },
+  { name: { en: 'Dental Crowns', hi: 'दंत मुकुट (क्राउन)' }, color: '#1E3A5F', description: { en: 'Custom porcelain caps to restore strength and aesthetics.', hi: 'ताकत और सौंदर्य को बहाल करने के लिए कस्टम चीनी मिट्टी के कैप।' }, position: [0, 0.8, 0] as [number, number, number] },
+  { name: { en: 'Dental Implants', hi: 'दंत प्रत्यारोपण (इंप्लांट)' }, color: '#F59E0B', description: { en: 'Permanent titanium anchors for missing teeth replacement.', hi: 'गायब दांतों को बदलने के लिए स्थायी टाइटेनियम एंकर।' }, position: [-0.4, -0.6, 0] as [number, number, number] },
+  { name: { en: 'Gum Contouring', hi: 'मसूड़ों का समोच्च' }, color: '#10B981', description: { en: 'Laser-assisted reshaping for a perfectly balanced smile.', hi: 'पूरी तरह से संतुलित मुस्कान के लिए लेजर-सहायता प्राप्त नया आकार देना।' }, position: [0.4, -0.1, 0.1] as [number, number, number] },
 ];
 
 function TreatmentModel({ hovered, setHovered }: {
@@ -24,12 +24,6 @@ function TreatmentModel({ hovered, setHovered }: {
     const c = scene.clone(true);
     c.traverse((node) => {
       if (node instanceof THREE.Mesh) {
-        node.material = new THREE.MeshStandardMaterial({
-          color: new THREE.Color('#FFFFFF'),
-          roughness: 0.15,
-          metalness: 0.1,
-          envMapIntensity: 1.5,
-        });
         node.castShadow = true;
         node.receiveShadow = true;
       }

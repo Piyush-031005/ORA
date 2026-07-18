@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 
 const navLinks = [
-  { en: 'About', hi: 'हमारे बारे में', href: '#about' },
-  { en: 'Treatments', hi: 'उपचार', href: '#treatments' },
-  { en: 'Doctors', hi: 'डॉक्टर', href: '#doctors' },
-  { en: 'Gallery', hi: 'गैलरी', href: '#gallery' },
+  { en: 'Specialists', hi: 'विशेषज्ञ', href: '#doctors' },
+  { en: 'Treatments', hi: 'उपचार', href: '#treatments-interactive' },
+  { en: 'Experience', hi: 'अनुभव', href: '#journey' },
+  { en: 'Reviews', hi: 'समीक्षा', href: '#reviews' },
 ];
 
 export default function Navbar() {

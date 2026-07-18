@@ -155,10 +155,13 @@ export default function QueueBooking() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-[#1E3A5F] text-white rounded-[40px] p-8 md:p-12 max-w-[600px] mx-auto shadow-xl">
+        <div className="bg-[#B81104] text-white rounded-[40px] p-8 md:p-12 max-w-[600px] mx-auto shadow-2xl shadow-[#B81104]/20 relative overflow-hidden">
+          {/* Subtle bg decoration */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+
           {step === 'form' ? (
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
-              <h3 className="font-serif text-2xl mb-8 text-center text-white">
+            <form onSubmit={handleSubmit(onSubmit)} noValidate className="relative z-10">
+              <h3 className="font-serif text-[28px] mb-8 text-center text-white">
                 {t("Register for Today's Queue", "आज की कतार के लिए पंजीकरण करें")}
               </h3>
 
@@ -166,10 +169,10 @@ export default function QueueBooking() {
                 <div>
                   <input 
                     {...register('name')} 
-                    className="w-full bg-white/10 border border-white/20 rounded-[20px] px-6 py-4 text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                    className="w-full bg-[#900e03] border border-white/10 rounded-[20px] px-6 py-4 text-white placeholder-white/60 focus:outline-none focus:border-white/50 focus:bg-[#a01003] transition-all"
                     placeholder={t("Full Name (e.g. Rahul Joshi)", "पूरा नाम (उदा. राहुल जोशी)")} 
                   />
-                  {errors.name && <p className="text-red-300 text-xs mt-2 ml-4">{errors.name.message}</p>}
+                  {errors.name && <p className="text-red-200 text-xs mt-2 ml-4">{errors.name.message}</p>}
                 </div>
 
                 <div className="flex gap-4">
@@ -177,7 +180,7 @@ export default function QueueBooking() {
                     <input 
                       {...register('age')} 
                       type="number" min={1} max={120} 
-                      className="w-full bg-white/10 border border-white/20 rounded-[20px] px-6 py-4 text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                      className="w-full bg-[#900e03] border border-white/10 rounded-[20px] px-6 py-4 text-white placeholder-white/60 focus:outline-none focus:border-white/50 focus:bg-[#a01003] transition-all"
                       placeholder={t("Age", "आयु")} 
                     />
                   </div>
@@ -185,7 +188,7 @@ export default function QueueBooking() {
                     <input 
                       {...register('mobile')} 
                       type="tel" 
-                      className="w-full bg-white/10 border border-white/20 rounded-[20px] px-6 py-4 text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors"
+                      className="w-full bg-[#900e03] border border-white/10 rounded-[20px] px-6 py-4 text-white placeholder-white/60 focus:outline-none focus:border-white/50 focus:bg-[#a01003] transition-all"
                       placeholder={t("Mobile Number", "मोबाइल नंबर")} 
                     />
                   </div>
@@ -200,18 +203,18 @@ export default function QueueBooking() {
                 <div>
                   <select 
                     {...register('problem')} 
-                    className="w-full bg-white/10 border border-white/20 rounded-[20px] px-6 py-4 text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors appearance-none cursor-pointer"
+                    className="w-full bg-[#900e03] border border-white/10 rounded-[20px] px-6 py-4 text-white placeholder-white/60 focus:outline-none focus:border-white/50 focus:bg-[#a01003] transition-all appearance-none cursor-pointer"
                   >
                     <option value="" className="text-black">{t("Select your concern...", "अपनी समस्या चुनें...")}</option>
                     {PROBLEMS.map(p => <option key={p} value={p} className="text-black">{p}</option>)}
                   </select>
-                  {errors.problem && <p className="text-red-300 text-xs mt-2 ml-4">{errors.problem.message}</p>}
+                  {errors.problem && <p className="text-red-200 text-xs mt-2 ml-4">{errors.problem.message}</p>}
                 </div>
 
                 <div>
                   <select 
                     {...register('doctor')} 
-                    className="w-full bg-white/10 border border-white/20 rounded-[20px] px-6 py-4 text-white placeholder-white/50 focus:outline-none focus:border-white/50 transition-colors appearance-none cursor-pointer"
+                    className="w-full bg-[#900e03] border border-white/10 rounded-[20px] px-6 py-4 text-white placeholder-white/60 focus:outline-none focus:border-white/50 focus:bg-[#a01003] transition-all appearance-none cursor-pointer"
                   >
                     {DOCTORS.map(d => <option key={d} value={d} className="text-black">{d}</option>)}
                   </select>
@@ -220,7 +223,7 @@ export default function QueueBooking() {
                 <button
                   type="submit"
                   disabled={isSubmitting || !isOpen}
-                  className="mt-4 bg-[#B81104] text-white font-bold uppercase tracking-widest text-sm rounded-[100px] py-5 w-full hover:bg-[#900e03] transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#B81104]/30"
+                  className="mt-4 bg-white text-[#B81104] font-bold uppercase tracking-widest text-sm rounded-[100px] py-5 w-full hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-black/10"
                 >
                   {isSubmitting ? t("Registering...", "पंजीकरण हो रहा है...") : !isOpen ? t("Queue Opens at 8 AM", "कतार सुबह 8 बजे खुलेगी") : t("Get Queue Number", "कतार नंबर प्राप्त करें")}
                 </button>
