@@ -26,7 +26,7 @@ export default function Hero() {
       className="relative w-full min-h-[100dvh] bg-[var(--bg-cream)] overflow-hidden flex items-center pt-20"
     >
       {/* 3D Canvas Container - Positioned on the right for desktop, background for mobile */}
-      <div className="absolute inset-0 md:left-1/3 md:inset-y-0 z-0">
+      <div className="absolute inset-0 md:left-1/2 md:inset-y-0 z-0 opacity-40 md:opacity-100 pointer-events-none md:pointer-events-auto">
         <HeroCanvas scrollY={scrollY} />
       </div>
 
@@ -45,11 +45,14 @@ export default function Hero() {
               {t('A smile', 'एक मुस्कान')}
             </span>
             <span className="block italic text-[var(--text-gray)]">
-              {t('carefully rebuilt.', 'ध्यान से बनाई गई।')}
+              {t('carefully', 'ध्यान से')}
+            </span>
+            <span className="inline-block bg-[var(--accent-red)] text-white px-6 py-2 mt-2 font-serif italic" style={{ paddingBottom: '0.2em' }}>
+              {t('rebuilt.', 'बनाई गई।')}
             </span>
           </h1>
 
-          <p className="text-body-lg max-w-[500px] mb-12">
+          <p className="text-body-lg max-w-[420px] mb-12">
             {t(
               "When life, time, or past dentistry leaves a mark, specialist-led care can rewrite the ending. Cinematic precision meets modern oral care.",
               "जब जीवन, समय या पुरानी दंत चिकित्सा कोई निशान छोड़ जाती है, तो विशेषज्ञ देखभाल उसे बदल सकती है। आधुनिक दंत चिकित्सा का अनुभव करें।"

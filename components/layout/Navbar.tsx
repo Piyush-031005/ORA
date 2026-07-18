@@ -37,15 +37,15 @@ export default function Navbar() {
       >
         <div className="container-ora flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-4 group">
-            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--accent-red)] text-white font-serif text-xl italic leading-none">
-              O
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-11 h-11 flex items-center justify-center rounded-full bg-[#A1140A] text-white transition-transform duration-500 group-hover:rotate-[360deg]">
+              <span className="font-serif text-[24px] italic leading-none pr-1">O</span>
             </div>
-            <div>
-              <span className="text-[20px] font-medium tracking-[0.05em] uppercase text-[var(--text-dark)] leading-none block mb-1">
+            <div className="flex flex-col">
+              <span className="text-[18px] font-serif tracking-[0.1em] uppercase text-[var(--text-dark)] leading-none mb-[2px]">
                 ORA
               </span>
-              <span className="text-[9px] uppercase tracking-[0.2em] font-medium text-[var(--text-gray)] leading-none block">
+              <span className="text-[8px] uppercase tracking-[0.25em] font-medium text-[var(--text-gray)] leading-none">
                 Dental Studio
               </span>
             </div>

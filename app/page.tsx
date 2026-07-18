@@ -13,17 +13,14 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <div id="anatomy">
-          <ToothAnatomy />
+        <div id="doctors">
+          <Doctors />
         </div>
         <div id="journey">
           <TreatmentJourney />
         </div>
         <div id="treatments">
           <Services />
-        </div>
-        <div id="doctors">
-          <Doctors />
         </div>
         <div id="queue">
           <QueueBooking />
