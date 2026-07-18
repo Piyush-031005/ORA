@@ -37,8 +37,8 @@ function AnatomyModel() {
   });
 
   return (
-    // Rotated to counter the natural diagonal slant, making it appear horizontal
-    <group ref={ref} rotation={[0.0, 0.0, -0.06]}>
+    // Rotated to counter the natural diagonal slant, making it appear horizontal and from the front
+    <group ref={ref} rotation={[0.15, 0.0, 0.82]}>
       <primitive object={cloned} />
     </group>
   );
@@ -108,7 +108,7 @@ export default function ToothAnatomy() {
                   maxPolarAngle={Math.PI / 1.5}
                 />
 
-                <Bounds fit clip observe margin={1.15}>
+                <Bounds fit clip observe margin={0.9}>
                   <AnatomyModel />
                 </Bounds>
                 <Environment preset="studio" />
@@ -129,33 +129,38 @@ export default function ToothAnatomy() {
                 className="group relative p-5 rounded-[20px] overflow-hidden cursor-default transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
                 style={{
                   background: i % 2 === 0
-                    ? 'linear-gradient(135deg, #FFF6F5 0%, #FFEBEA 100%)'
-                    : 'linear-gradient(135deg, #FFFAF9 0%, #FFF3F2 100%)',
-                  border: '1px solid rgba(184,17,4,0.06)',
+                    ? 'linear-gradient(135deg, #F0F7FF 0%, #E0F0FF 100%)'
+                    : 'linear-gradient(135deg, #F5F9FF 0%, #E6F3FF 100%)',
+                  border: '1px solid rgba(14, 165, 233, 0.15)',
                 }}
               >
                 {/* Icon circle */}
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-xl mb-4"
                   style={{
-                    background: 'rgba(184,17,4,0.06)',
-                    boxShadow: '0 2px 8px rgba(184,17,4,0.04)',
+                    background: 'rgba(14, 165, 233, 0.1)',
+                    boxShadow: '0 2px 8px rgba(14, 165, 233, 0.05)',
                   }}
                 >
                   {item.icon}
                 </div>
 
-                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '17px', color: 'var(--text-dark)', marginBottom: '6px', lineHeight: 1.3 }}>
-                  {lang === 'en' ? item.name.en : item.name.hi}
-                </h3>
-                <p style={{ fontSize: '13px', color: 'var(--text-gray)', lineHeight: 1.65 }}>
-                  {lang === 'en' ? item.desc.en : item.desc.hi}
-                </p>
+                <div className="flex gap-2 items-start">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#0EA5E9] mt-2 flex-shrink-0" />
+                  <div>
+                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '17px', color: '#0369A1', marginBottom: '6px', lineHeight: 1.3 }}>
+                      {lang === 'en' ? item.name.en : item.name.hi}
+                    </h3>
+                    <p style={{ fontSize: '13px', color: 'var(--text-gray)', lineHeight: 1.65 }}>
+                      {lang === 'en' ? item.desc.en : item.desc.hi}
+                    </p>
+                  </div>
+                </div>
 
                 {/* Hover accent line */}
                 <div
                   className="absolute bottom-0 left-0 right-0 h-[3px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                  style={{ background: 'linear-gradient(90deg, #B81104, #EF4444)' }}
+                  style={{ background: 'linear-gradient(90deg, #0EA5E9, #38BDF8)' }}
                 />
               </div>
             ))}
