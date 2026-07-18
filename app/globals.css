@@ -6,12 +6,12 @@
    ============================================ */
 :root {
   /* Primary Palette (Light/Luxury) */
-  --bg-cream: #FDFBF7;
+  --bg-cream: #FFFACD;
   --bg-lemon: #FFFACD;
   --bg-white: #FFFFFF;
   
   /* Accent Palette */
-  --accent-red: #A1140A; /* Deep premium red based on Milano Red */
+  --accent-red: #B81104; /* Milano Red */
   --accent-red-light: #B81104; /* Milano Red */
   
   /* Text */
