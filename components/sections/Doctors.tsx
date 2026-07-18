@@ -61,83 +61,107 @@ function DoctorRow({ doctor, index }: { doctor: typeof DOCTORS[0]; index: number
   const { lang } = useLanguage();
   const isEven = index % 2 === 0;
 
+  // Common Info Panel content to keep the code DRY
+  const infoPanel = (
+    <div
+      className="w-full flex flex-col justify-center p-8 md:p-12 lg:p-16 text-left relative overflow-hidden"
+      style={{ backgroundColor: '#B81104', minHeight: '400px' }}
+    >
+      {/* Decorative watermark number */}
+      <div
+        className="absolute top-6 right-8 font-serif italic select-none pointer-events-none"
+        style={{ fontSize: '120px', lineHeight: 1, color: 'rgba(255,255,255,0.06)', fontWeight: 400 }}
+      >
+        {String(index + 1).padStart(2, '0')}
+      </div>
+
+      {/* Experience badge */}
+      <div className="inline-flex items-center gap-2 mb-6">
+        <div className="w-8 h-[2px] bg-white/60" />
+        <span style={{ fontSize: '11px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
+          {doctor.experience} {lang === 'en' ? 'Years Experience' : 'वर्षों का अनुभव'}
+        </span>
+      </div>
+
+      {/* Name */}
+      <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(26px, 3vw, 38px)', color: '#FFFFFF', fontWeight: 400, lineHeight: 1.15, marginBottom: '8px', letterSpacing: '-0.01em' }}>
+        {doctor.name}
+      </h3>
+
+      {/* Specialization */}
+      <p style={{ fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.16em', color: 'rgba(255,255,255,0.7)', fontWeight: 500, marginBottom: '4px' }}>
+        {lang === 'en' ? doctor.specialization.en : doctor.specialization.hi}
+      </p>
+      <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', marginBottom: '24px', fontStyle: 'italic' }}>
+        {doctor.qualifications}
+      </p>
+
+      {/* Divider */}
+      <div style={{ width: '48px', height: '1px', backgroundColor: 'rgba(255,255,255,0.3)', marginBottom: '24px' }} />
+
+      {/* Description */}
+      <p style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', color: 'rgba(255,255,255,0.85)', lineHeight: 1.75, maxWidth: '460px', marginBottom: '28px' }}>
+        {lang === 'en' ? doctor.description.en : doctor.description.hi}
+      </p>
+
+      {/* Tags */}
+      <div className="flex flex-wrap gap-2">
+        {doctor.tags.map((tag) => (
+          <span
+            key={tag}
+            className="px-3 py-1.5 rounded-full"
+            style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.06em', backgroundColor: 'rgba(255,255,255,0.15)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.25)' }}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+
+  const imagePanel = (
+    <div className="relative w-full h-full min-h-[320px] md:min-h-full overflow-hidden">
+      <img
+        src={doctor.image}
+        alt={doctor.name}
+        className="absolute inset-0 w-full h-full object-cover object-center"
+      />
+      {/* Subtle overlay */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.12) 0%, transparent 60%)' }} />
+    </div>
+  );
+
   return (
     <div
       ref={ref}
-      className="w-full flex flex-col md:flex-row overflow-hidden rounded-[28px] shadow-md"
+      className="w-full grid grid-cols-1 md:grid-cols-12 overflow-hidden rounded-[28px] shadow-md bg-[#B81104]"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'none' : `translateY(50px)`,
         transition: `all 0.9s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.12}s`,
-        minHeight: '420px',
       }}
     >
-      {/* IMAGE SIDE */}
-      <div className={`relative w-full md:w-[45%] overflow-hidden ${isEven ? 'md:order-1' : 'md:order-2'}`} style={{ minHeight: '320px' }}>
-        <img
-          src={doctor.image}
-          alt={doctor.name}
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
-        {/* Subtle overlay */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.12) 0%, transparent 60%)' }} />
-      </div>
-
-      {/* INFO PANEL (Milano Red background) */}
-      <div
-        className={`relative w-full md:w-[55%] flex flex-col justify-center p-10 md:p-14 ${isEven ? 'md:order-2' : 'md:order-1'}`}
-        style={{ backgroundColor: '#B81104' }}
-      >
-        {/* Decorative watermark number */}
-        <div
-          className="absolute top-6 right-8 font-serif italic select-none pointer-events-none"
-          style={{ fontSize: '120px', lineHeight: 1, color: 'rgba(255,255,255,0.06)', fontWeight: 400 }}
-        >
-          {String(index + 1).padStart(2, '0')}
-        </div>
-
-        {/* Experience badge */}
-        <div className="inline-flex items-center gap-2 mb-6">
-          <div className="w-8 h-[2px] bg-white/60" />
-          <span style={{ fontSize: '11px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
-            {doctor.experience} {lang === 'en' ? 'Years Experience' : 'वर्षों का अनुभव'}
-          </span>
-        </div>
-
-        {/* Name */}
-        <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(26px, 3vw, 38px)', color: '#FFFFFF', fontWeight: 400, lineHeight: 1.15, marginBottom: '8px', letterSpacing: '-0.01em' }}>
-          {doctor.name}
-        </h3>
-
-        {/* Specialization */}
-        <p style={{ fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.16em', color: 'rgba(255,255,255,0.7)', fontWeight: 500, marginBottom: '4px' }}>
-          {lang === 'en' ? doctor.specialization.en : doctor.specialization.hi}
-        </p>
-        <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', marginBottom: '24px', fontStyle: 'italic' }}>
-          {doctor.qualifications}
-        </p>
-
-        {/* Divider */}
-        <div style={{ width: '48px', height: '1px', backgroundColor: 'rgba(255,255,255,0.3)', marginBottom: '24px' }} />
-
-        {/* Description */}
-        <p style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', color: 'rgba(255,255,255,0.85)', lineHeight: 1.75, maxWidth: '460px', marginBottom: '28px' }}>
-          {lang === 'en' ? doctor.description.en : doctor.description.hi}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2">
-          {doctor.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1.5 rounded-full"
-              style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.06em', backgroundColor: 'rgba(255,255,255,0.15)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.25)' }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
+      {isEven ? (
+        <>
+          {/* Image Left, Info Right */}
+          <div className="md:col-span-5 h-full">
+            {imagePanel}
+          </div>
+          <div className="md:col-span-7 h-full">
+            {infoPanel}
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Info Left, Image Right */}
+          <div className="md:col-span-7 h-full">
+            {infoPanel}
+          </div>
+          <div className="md:col-span-5 h-full">
+            {imagePanel}
+          </div>
+        </>
+      )}
     </div>
   );
 }

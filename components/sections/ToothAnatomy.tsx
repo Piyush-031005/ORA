@@ -7,12 +7,12 @@ import * as THREE from 'three';
 import { useLanguage } from '@/context/LanguageContext';
 
 const TREATMENTS = [
-  { name: { en: 'Root Canal Therapy', hi: 'रूट कैनाल थेरेपी' }, desc: { en: 'Pain-free, preserve your natural tooth', hi: 'दर्द-मुक्त, प्राकृतिक दांत बचाएं' }, icon: '🦷' },
-  { name: { en: 'Dental Crowns', hi: 'डेंटल क्राउन' }, desc: { en: 'Full strength restoration with porcelain', hi: 'पोर्सिलेन से पूर्ण मजबूती' }, icon: '👑' },
-  { name: { en: 'Dental Implants', hi: 'डेंटल इंप्लांट' }, desc: { en: 'Lifetime titanium tooth replacement', hi: 'जीवन भर टाइटेनियम प्रत्यारोपण' }, icon: '⚙️' },
-  { name: { en: 'Smile Design', hi: 'स्माइल डिज़ाइन' }, desc: { en: 'Veneers, whitening & makeovers', hi: 'विनियर, व्हाइटनिंग और मेकओवर' }, icon: '✨' },
-  { name: { en: 'Gum Contouring', hi: 'मसूड़ों की देखभाल' }, desc: { en: 'Laser precision for a perfect smile line', hi: 'लेजर से परफेक्ट स्माइल लाइन' }, icon: '💉' },
-  { name: { en: 'Orthodontics', hi: 'ऑर्थोडॉन्टिक्स' }, desc: { en: 'Invisible aligners & braces', hi: 'इनविज़िबल अलाइनर और ब्रेसेस' }, icon: '📐' },
+  { name: { en: 'Root Canal Therapy', hi: 'रूट कैनाल थेरेपी' }, desc: { en: 'Pain-free, advanced pulp therapy to preserve natural teeth.', hi: 'दर्द-मुक्त, प्राकृतिक दांतों को बचाने के लिए उन्नत चिकित्सा।' }, icon: '🦷' },
+  { name: { en: 'Capping & Crowns', hi: 'कैपिंग और क्राउन' }, desc: { en: 'Full strength porcelain caps restoring decayed or broken teeth.', hi: 'सड़े या टूटे हुए दांतों को पूरी मजबूती प्रदान करने वाली कैप।' }, icon: '👑' },
+  { name: { en: 'Dental Implants', hi: 'डेंटल इंप्लांट' }, desc: { en: 'Lifetime titanium tooth replacement root structures.', hi: 'जीवन भर चलने वाले टाइटेनियम दंत प्रत्यारोपण।' }, icon: '⚙️' },
+  { name: { en: 'Orthodontics & Braces', hi: 'ऑर्थोडॉन्टिक्स और ब्रेसेस' }, desc: { en: 'Advanced invisible aligners and traditional wire structures.', hi: 'उन्नत इनविज़िबल अलाइनर और पारंपरिक ब्रेसेस।' }, icon: '📐' },
+  { name: { en: 'Safe Extractions', hi: 'सुरक्षित निष्कर्षण' }, desc: { en: 'Surgical and gentle removal of damaged or wisdom teeth.', hi: 'क्षतिग्रस्त या अक्ल दाढ़ को सुरक्षित रूप से निकालना।' }, icon: '💉' },
+  { name: { en: 'Teeth Whitening', hi: 'दांतों की सफेदी' }, desc: { en: 'Clinical grade cosmetic bleaching for instant brightness.', hi: 'तुरंत चमक के लिए नैदानिक ग्रेड कॉस्मेटिक ब्लीचिंग।' }, icon: '✨' },
 ];
 
 function AnatomyModel() {
@@ -37,8 +37,8 @@ function AnatomyModel() {
   });
 
   return (
-    // Rotate to counteract the natural diagonal slant of this model (pink gum block goes diagonally)
-    <group ref={ref} rotation={[0.05, 0, 0.12]}>
+    // Rotated to counter the natural diagonal slant, making it appear horizontal
+    <group ref={ref} rotation={[0.0, 0.0, -0.06]}>
       <primitive object={cloned} />
     </group>
   );
@@ -87,7 +87,7 @@ export default function ToothAnatomy() {
             </div>
 
             {/* 3D Model canvas */}
-            <div className="w-full relative rounded-[24px] overflow-hidden bg-[#F4F6F9]" style={{ height: '460px' }}>
+            <div className="w-full relative rounded-[24px] overflow-hidden bg-[#FFF8F8]" style={{ height: '460px', border: '1px solid rgba(184, 17, 4, 0.06)' }}>
               <Canvas
                 camera={{ fov: 30, position: [0, 0, 7] }}
                 dpr={[1, 2]}
@@ -108,7 +108,7 @@ export default function ToothAnatomy() {
                   maxPolarAngle={Math.PI / 1.5}
                 />
 
-                <Bounds fit clip observe margin={1.35}>
+                <Bounds fit clip observe margin={1.15}>
                   <AnatomyModel />
                 </Bounds>
                 <Environment preset="studio" />
@@ -129,17 +129,17 @@ export default function ToothAnatomy() {
                 className="group relative p-5 rounded-[20px] overflow-hidden cursor-default transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
                 style={{
                   background: i % 2 === 0
-                    ? 'linear-gradient(135deg, #EEF4FF 0%, #D9E8FF 100%)'
-                    : 'linear-gradient(135deg, #F0F5FF 0%, #E4EDFF 100%)',
-                  border: '1px solid rgba(37,99,235,0.08)',
+                    ? 'linear-gradient(135deg, #FFF6F5 0%, #FFEBEA 100%)'
+                    : 'linear-gradient(135deg, #FFFAF9 0%, #FFF3F2 100%)',
+                  border: '1px solid rgba(184,17,4,0.06)',
                 }}
               >
                 {/* Icon circle */}
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-xl mb-4"
                   style={{
-                    background: 'rgba(37,99,235,0.08)',
-                    boxShadow: '0 2px 8px rgba(37,99,235,0.08)',
+                    background: 'rgba(184,17,4,0.06)',
+                    boxShadow: '0 2px 8px rgba(184,17,4,0.04)',
                   }}
                 >
                   {item.icon}
@@ -155,7 +155,7 @@ export default function ToothAnatomy() {
                 {/* Hover accent line */}
                 <div
                   className="absolute bottom-0 left-0 right-0 h-[3px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                  style={{ background: 'linear-gradient(90deg, #2563EB, #60A5FA)' }}
+                  style={{ background: 'linear-gradient(90deg, #B81104, #EF4444)' }}
                 />
               </div>
             ))}

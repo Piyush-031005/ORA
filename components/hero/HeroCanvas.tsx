@@ -31,7 +31,7 @@ function ToothCrown() {
 
   return (
     <Float speed={1.5} rotationIntensity={0.04} floatIntensity={0.08}>
-      <group ref={ref} scale={1.8} position={[0, 0.8, 0]}>
+      <group ref={ref} scale={1.8} position={[0, 0.25, 0]}>
         <primitive object={cloned} />
       </group>
     </Float>
@@ -52,7 +52,7 @@ function ImplantRod() {
   });
 
   return (
-    <group ref={ref} position={[0, -0.8, 0]} scale={1.2}>
+    <group ref={ref} position={[0, -0.9, 0]} scale={1.2}>
       {/* Abutment (top connector) */}
       <mesh castShadow>
         <cylinderGeometry args={[0.22, 0.18, 0.35, 32]} />
