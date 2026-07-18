@@ -111,14 +111,14 @@ export default function Footer() {
                   <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <span style={{ color: 'var(--gray-200)', fontSize: '14px', lineHeight: '1.6' }}>
-                  23, Dental Square, MG Road,<br />Mumbai, Maharashtra 400001
+                  Siltham Chauraha, near Clinic Area,<br />Pithoragarh, Uttarakhand 262501
                 </span>
               </li>
               <li className="flex gap-3 items-center">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-glow)" strokeWidth="1.5" className="shrink-0">
                   <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <a href="tel:+911234567890" style={{ color: 'var(--gray-200)', fontSize: '14px' }}>+91 12345 67890</a>
+                <a href="tel:+919876543210" style={{ color: 'var(--gray-200)', fontSize: '14px' }}>+91 98765 43210</a>
               </li>
               <li className="flex gap-3 items-center">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-glow)" strokeWidth="1.5" className="shrink-0">
@@ -127,6 +127,16 @@ export default function Footer() {
                 <span style={{ color: 'var(--gray-200)', fontSize: '14px', lineHeight: '1.6' }}>
                   Mon – Sat: 9 AM – 8 PM<br />Queue opens: 8 AM
                 </span>
+              </li>
+              <li className="mt-2">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3443.0841804791334!2d80.2105151!3d29.5843794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a5ca0e5b0cb549%3A0xc34ccf3e2840cf11!2sSiltham%2520Chauraha%2520Pithoragarh!5e0!3m2!1sen!2sin!4v1721323328000!5m2!1sen!2sin"
+                  width="100%" 
+                  height="120" 
+                  style={{ border: 0, borderRadius: '8px', filter: 'invert(90%) hue-rotate(180deg) grayscale(100%) opacity(0.85)' }} 
+                  allowFullScreen={false} 
+                  loading="lazy"
+                ></iframe>
               </li>
             </ul>
           </div>
