@@ -3,244 +3,85 @@
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 const HeroCanvas = dynamic(() => import('./HeroCanvas'), {
   ssr: false,
-  loading: () => (
-    <div style={{ position: 'absolute', inset: 0, background: '#080818', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div className="animate-glow-pulse" style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(0,212,255,0.1)', border: '1px solid rgba(0,212,255,0.3)' }} />
-    </div>
-  ),
+  loading: () => <div style={{ position: 'absolute', inset: 0 }} />
 });
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
-  const [textVisible, setTextVisible] = useState(false);
-  const heroRef = useRef<HTMLElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
-    // Text appears after particles (2.2s)
-    const timer = setTimeout(() => setTextVisible(true), 2200);
-
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const textOpacity = Math.max(0, 1 - scrollY / 300);
-  const textTranslateY = Math.min(scrollY * 0.4, 80);
 
   return (
     <section
-      ref={heroRef}
       id="home"
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100dvh',
-        minHeight: 600,
-        overflow: 'hidden',
-        background: '#080818',
-      }}
+      className="relative w-full min-h-[100dvh] bg-[var(--bg-cream)] overflow-hidden flex items-center pt-20"
     >
-      {/* WebGL Canvas */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+      {/* 3D Canvas Container - Positioned on the right for desktop, background for mobile */}
+      <div className="absolute inset-0 md:left-1/3 md:inset-y-0 z-0">
         <HeroCanvas scrollY={scrollY} />
       </div>
 
-      {/* Radial gradient overlay */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(8,8,24,0.6) 100%)',
-          zIndex: 1,
-          pointerEvents: 'none',
-        }}
-      />
+      {/* Content */}
+      <div className="container-ora relative z-10 w-full">
+        <div className="max-w-[720px] animate-fade-up">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-[1px] bg-[var(--accent-red)]" />
+            <span className="text-label text-[var(--accent-red)]">
+              {t('Specialist-Led Dental Care', 'विशेषज्ञ दंत चिकित्सा')}
+            </span>
+          </div>
 
-      {/* Bottom fade */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: '30%',
-          background: 'linear-gradient(to top, #080818, transparent)',
-          zIndex: 1,
-          pointerEvents: 'none',
-        }}
-      />
+          <h1 className="display-2xl text-[var(--text-dark)] mb-6 leading-[1.05]">
+            <span className="block">
+              {t('A smile', 'एक मुस्कान')}
+            </span>
+            <span className="block italic text-[var(--text-gray)]">
+              {t('carefully rebuilt.', 'ध्यान से बनाई गई।')}
+            </span>
+          </h1>
 
-      {/* Hero Text */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          padding: '0 24px',
-          opacity: textVisible ? textOpacity : 0,
-          transform: `translateY(${textVisible ? textTranslateY : 20}px)`,
-          transition: textVisible ? 'opacity 0.1s linear' : 'opacity 1s ease, transform 1s var(--ease-out-expo)',
-          pointerEvents: textOpacity < 0.1 ? 'none' : 'auto',
-        }}
-      >
-        {/* Label */}
-        <div
-          className="text-label animate-fade-in"
-          style={{
-            color: 'var(--cyan-glow)',
-            marginBottom: 24,
-            animationDelay: '0.2s',
-            animationFillMode: 'both',
-          }}
-        >
-          ORA Dental Studio — Mumbai
-        </div>
+          <p className="text-body-lg max-w-[500px] mb-12">
+            {t(
+              "When life, time, or past dentistry leaves a mark, specialist-led care can rewrite the ending. Cinematic precision meets modern oral care.",
+              "जब जीवन, समय या पुरानी दंत चिकित्सा कोई निशान छोड़ जाती है, तो विशेषज्ञ देखभाल उसे बदल सकती है। आधुनिक दंत चिकित्सा का अनुभव करें।"
+            )}
+          </p>
 
-        {/* Main headline */}
-        <h1
-          className="display-2xl"
-          style={{
-            color: 'var(--ghost)',
-            maxWidth: 780,
-            marginBottom: 12,
-          }}
-        >
-          Healthy smiles<br />
-          <span className="text-gradient-royal">
-            aren't created.
-          </span>
-        </h1>
+          <div className="flex flex-wrap items-center gap-6">
+            <Link href="#queue" className="btn btn-primary">
+              {t('Book Consultation', 'परामर्श बुक करें')}
+            </Link>
+            <Link href="#about" className="btn btn-outline">
+              {t('Discover What\'s Possible', 'हमारी विशेषज्ञता देखें')}
+            </Link>
+          </div>
 
-        <h2
-          className="display-xl"
-          style={{
-            color: 'var(--ghost)',
-            marginBottom: 32,
-            fontStyle: 'italic',
-            opacity: 0.6,
-          }}
-        >
-          They're engineered.
-        </h2>
-
-        {/* Subtext */}
-        <p
-          style={{
-            color: 'var(--gray-200)',
-            fontSize: 'clamp(15px, 2vw, 18px)',
-            maxWidth: 480,
-            lineHeight: 1.7,
-            marginBottom: 48,
-          }}
-        >
-          India's first digital dental experience. Cinematic precision meets modern oral care. Walk in. Walk out smiling.
-        </p>
-
-        {/* CTAs */}
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <Link href="#queue" className="btn btn-primary btn-lg">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
-            Get Queue Number
-          </Link>
-          <Link href="#anatomy" className="btn btn-outline btn-lg">
-            Explore Treatment
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
-        </div>
-
-        {/* Stats bar */}
-        <div
-          className="flex flex-wrap gap-8 mt-16 justify-center"
-          style={{ opacity: 0.7 }}
-        >
-          {[
-            { n: '10,000+', label: 'Smiles Crafted' },
-            { n: '15+', label: 'Years of Precision' },
-            { n: '8', label: 'Specialist Doctors' },
-            { n: '4.9★', label: 'Patient Rating' },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 'clamp(20px, 3vw, 28px)',
-                  fontWeight: 700,
-                  color: 'var(--ghost)',
-                }}
-              >
-                {stat.n}
-              </div>
-              <div className="text-label" style={{ color: 'var(--gray-400)', marginTop: 4 }}>
-                {stat.label}
+          {/* Stats */}
+          <div className="flex flex-wrap gap-12 mt-20 pt-12 border-t border-[var(--border-light)]">
+            <div>
+              <div className="text-[32px] font-serif text-[var(--text-dark)] leading-none mb-2">10k+</div>
+              <div className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--text-gray)]">
+                {t('Smiles Restored', 'मुस्कानें बहाल की गईं')}
               </div>
             </div>
-          ))}
+            <div>
+              <div className="text-[32px] font-serif text-[var(--text-dark)] leading-none mb-2">15</div>
+              <div className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--text-gray)]">
+                {t('Years Experience', 'वर्षों का अनुभव')}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 32,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 3,
-          opacity: textVisible ? Math.max(0, 1 - scrollY / 150) : 0,
-          transition: 'opacity 0.3s',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 8,
-        }}
-      >
-        <span className="text-label" style={{ color: 'var(--gray-400)', fontSize: '10px' }}>SCROLL</span>
-        <div
-          style={{
-            width: 24,
-            height: 40,
-            borderRadius: 12,
-            border: '1.5px solid rgba(247,247,255,0.25)',
-            display: 'flex',
-            justifyContent: 'center',
-            paddingTop: 6,
-          }}
-        >
-          <div
-            style={{
-              width: 4,
-              height: 8,
-              borderRadius: 2,
-              background: 'var(--cyan-glow)',
-              animation: 'scroll-dot 1.8s ease-in-out infinite',
-            }}
-          />
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes scroll-dot {
-          0% { transform: translateY(0); opacity: 1; }
-          50% { transform: translateY(10px); opacity: 0.3; }
-          100% { transform: translateY(0); opacity: 1; }
-        }
-      `}</style>
     </section>
   );
 }
