@@ -220,7 +220,7 @@ export default function QueueBooking() {
                 <button
                   type="submit"
                   disabled={isSubmitting || !isOpen}
-                  className="mt-4 bg-white text-[#1E3A5F] font-bold uppercase tracking-widest text-sm rounded-[100px] py-5 w-full hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="mt-4 bg-[#B81104] text-white font-bold uppercase tracking-widest text-sm rounded-[100px] py-5 w-full hover:bg-[#900e03] transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#B81104]/30"
                 >
                   {isSubmitting ? t("Registering...", "पंजीकरण हो रहा है...") : !isOpen ? t("Queue Opens at 8 AM", "कतार सुबह 8 बजे खुलेगी") : t("Get Queue Number", "कतार नंबर प्राप्त करें")}
                 </button>

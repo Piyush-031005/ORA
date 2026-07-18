@@ -1,21 +1,19 @@
 'use client';
 
 import { useRef, useState, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Html, Environment, AdaptiveDpr, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import dynamic from 'next/dynamic';
+import { useLanguage } from '@/context/LanguageContext';
 
-const PARTS = [
-  { name: 'Enamel', color: '#E8E8F5', description: 'The hardest substance in the human body. Protects against decay.', position: [0, 0.9, 0] as [number, number, number] },
-  { name: 'Dentin', color: '#F5E6C8', description: 'Yellow-tinted layer beneath enamel. Contains microscopic tubules.', position: [0.4, 0.3, 0] as [number, number, number] },
-  { name: 'Pulp', color: '#E8A0A0', description: 'Living tissue at the core. Houses nerves and blood vessels.', position: [0, 0, 0] as [number, number, number] },
-  { name: 'Root', color: '#D4C4A8', description: 'Anchors the tooth firmly into the jawbone socket.', position: [-0.3, -0.7, 0] as [number, number, number] },
-  { name: 'Nerve', color: '#C8F0E8', description: 'Transmits pain and temperature signals to the brain.', position: [0.2, -0.4, 0] as [number, number, number] },
-  { name: 'Cementum', color: '#B8D4B8', description: 'Covers the root, connecting it to the periodontal ligament.', position: [-0.5, -0.3, 0] as [number, number, number] },
+const TREATMENTS = [
+  { name: { en: 'Root Canal Therapy', hi: 'रूट कैनाल थेरेपी' }, color: '#B81104', description: { en: 'Pain-free extraction of infected pulp, saving your natural tooth.', hi: 'संक्रमित पल्प को दर्द-मुक्त निकालना, आपके प्राकृतिक दांत को बचाना।' }, position: [0, 0, 0] as [number, number, number] },
+  { name: { en: 'Dental Crowns', hi: 'दंत मुकुट (क्राउन)' }, color: '#1E3A5F', description: { en: 'Custom porcelain caps to restore strength and aesthetics.', hi: 'ताकत और सौंदर्य को बहाल करने के लिए कस्टम चीनी मिट्टी के कैप।' }, position: [0, 0.9, 0] as [number, number, number] },
+  { name: { en: 'Dental Implants', hi: 'दंत प्रत्यारोपण (इंप्लांट)' }, color: '#F59E0B', description: { en: 'Permanent titanium anchors for missing teeth replacement.', hi: 'गायब दांतों को बदलने के लिए स्थायी टाइटेनियम एंकर।' }, position: [-0.3, -0.7, 0] as [number, number, number] },
+  { name: { en: 'Gum Contouring', hi: 'मसूड़ों का समोच्च' }, color: '#10B981', description: { en: 'Laser-assisted reshaping for a perfectly balanced smile.', hi: 'पूरी तरह से संतुलित मुस्कान के लिए लेजर-सहायता प्राप्त नया आकार देना।' }, position: [-0.5, -0.3, 0] as [number, number, number] },
 ];
 
-function AnatomyModel({ hovered, setHovered }: {
+function TreatmentModel({ hovered, setHovered }: {
   hovered: string | null;
   setHovered: (v: string | null) => void;
 }) {
@@ -26,13 +24,10 @@ function AnatomyModel({ hovered, setHovered }: {
     const c = scene.clone(true);
     c.traverse((node) => {
       if (node instanceof THREE.Mesh) {
-        const originalMat = node.material as THREE.MeshStandardMaterial;
-        node.material = new THREE.MeshPhysicalMaterial({
-          color: originalMat.color || new THREE.Color('#F0F0FF'),
-          metalness: 0.05,
-          roughness: 0.2,
-          transmission: 0.05,
-          clearcoat: 0.3,
+        node.material = new THREE.MeshStandardMaterial({
+          color: new THREE.Color('#FFFFFF'),
+          roughness: 0.15,
+          metalness: 0.1,
           envMapIntensity: 1.5,
         });
         node.castShadow = true;
@@ -44,43 +39,35 @@ function AnatomyModel({ hovered, setHovered }: {
 
   useFrame(({ clock }) => {
     if (!group.current) return;
-    group.current.rotation.y = clock.getElapsedTime() * 0.15;
+    group.current.rotation.y = clock.getElapsedTime() * 0.1;
   });
 
   return (
     <group ref={group} scale={[1.2, 1.2, 1.2]}>
       <primitive object={cloned} />
       {/* Annotation dots */}
-      {PARTS.map((part) => (
+      {TREATMENTS.map((part) => (
         <mesh
-          key={part.name}
+          key={part.name.en}
           position={part.position}
-          onClick={() => setHovered(hovered === part.name ? null : part.name)}
-          onPointerOver={() => setHovered(part.name)}
+          onClick={() => setHovered(hovered === part.name.en ? null : part.name.en)}
+          onPointerOver={() => setHovered(part.name.en)}
           onPointerOut={() => setHovered(null)}
         >
-          <sphereGeometry args={[0.06, 16, 16]} />
+          <sphereGeometry args={[0.08, 16, 16]} />
           <meshBasicMaterial
-            color={hovered === part.name ? '#00D4FF' : part.color}
+            color={hovered === part.name.en ? '#B81104' : part.color}
             transparent
             opacity={0.9}
           />
-          {hovered === part.name && (
-            <Html center distanceFactor={4} style={{ pointerEvents: 'none' }}>
-              <div style={{
-                background: 'rgba(8,8,24,0.92)',
-                border: '1px solid rgba(0,212,255,0.4)',
-                borderRadius: 10,
-                padding: '10px 14px',
-                minWidth: 160,
-                backdropFilter: 'blur(12px)',
-                boxShadow: '0 0 30px rgba(0,212,255,0.2)',
-              }}>
-                <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: 14, color: '#00D4FF', marginBottom: 4 }}>
-                  {part.name}
+          {hovered === part.name.en && (
+            <Html center distanceFactor={5} style={{ pointerEvents: 'none', zIndex: 50 }}>
+              <div className="bg-white/95 backdrop-blur-md border border-[var(--border-light)] rounded-xl p-4 shadow-xl min-w-[200px]">
+                <div className="font-serif font-bold text-[15px] text-[var(--text-dark)] mb-1">
+                  {part.name.en}
                 </div>
-                <div style={{ fontSize: 12, color: '#E8E8F8', lineHeight: 1.5 }}>
-                  {part.description}
+                <div className="text-[12px] text-[var(--text-gray)] leading-relaxed">
+                  {part.description.en}
                 </div>
               </div>
             </Html>
@@ -94,13 +81,13 @@ function AnatomyModel({ hovered, setHovered }: {
 function AnatomyScene({ hovered, setHovered }: { hovered: string | null; setHovered: (v: string | null) => void }) {
   return (
     <>
-      <color attach="background" args={['#0D0D2B']} />
-      <ambientLight intensity={0.4} />
-      <directionalLight intensity={3} color="#ffffff" position={[5, 8, 5]} />
-      <pointLight color="#27187D" intensity={2} distance={10} position={[-3, 2, -3]} />
-      <pointLight color="#00D4FF" intensity={1.5} distance={8} position={[3, -2, 3]} />
-      <AnatomyModel hovered={hovered} setHovered={setHovered} />
+      <ambientLight intensity={0.8} color="#ffffff" />
+      <directionalLight intensity={2.5} color="#ffffff" position={[5, 8, 5]} />
+      <pointLight color="#B81104" intensity={2} distance={10} position={[-3, 2, -3]} />
+      
+      <TreatmentModel hovered={hovered} setHovered={setHovered} />
       <OrbitControls enableZoom={false} enablePan={false} autoRotate={!hovered} autoRotateSpeed={0.8} />
+      
       <Environment preset="studio" />
       <AdaptiveDpr pixelated />
     </>
@@ -109,98 +96,70 @@ function AnatomyScene({ hovered, setHovered }: { hovered: string | null; setHove
 
 export default function ToothAnatomy() {
   const [hovered, setHovered] = useState<string | null>(null);
+  const { lang, t } = useLanguage();
 
   return (
-    <section
-      id="anatomy"
-      className="section-py"
-      style={{ background: 'var(--midnight-soft)', position: 'relative', overflow: 'hidden' }}
-    >
-      {/* Background glow */}
-      <div style={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%,-50%)',
-        width: '60vw',
-        height: '60vw',
-        background: 'radial-gradient(circle, rgba(39,24,125,0.15) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-
+    <section id="treatments-interactive" className="section-py bg-[var(--bg-cream)] relative overflow-hidden">
       <div className="container-ora">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="text-label mb-4" style={{ color: 'var(--cyan-glow)' }}>Interactive Anatomy</div>
-          <h2 className="display-lg" style={{ color: 'var(--ghost)', marginBottom: 16 }}>
-            Your tooth.<br />
-            <span className="text-gradient-royal">Engineered by nature.</span>
+        <div className="text-center mb-16 max-w-[700px] mx-auto">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-[1px] bg-[#B81104]" />
+            <span className="text-label text-[#B81104]">
+              {t('Comprehensive Treatments', 'व्यापक उपचार')}
+            </span>
+            <div className="w-8 h-[1px] bg-[#B81104]" />
+          </div>
+          <h2 className="display-lg text-[var(--text-dark)] mb-6">
+            {t('Mastering every layer', 'हर परत में महारत')} <br />
+            <span className="italic text-[var(--text-gray)]">
+              {t('of your oral health.', 'आपके मौखिक स्वास्थ्य की।')}
+            </span>
           </h2>
-          <p style={{ color: 'var(--gray-400)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
-            Hover over the glowing points to explore each layer of your tooth. Understanding your teeth is the first step to protecting them.
-          </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12 items-center">
           {/* 3D Model */}
-          <div style={{ flex: '1 1 500px', height: 520, borderRadius: 'var(--radius-xl)', overflow: 'hidden', position: 'relative' }}>
-            <div className="glass" style={{ position: 'absolute', inset: 0, borderRadius: 'var(--radius-xl)' }} />
+          <div className="w-full lg:w-1/2 h-[500px] bg-white rounded-[32px] overflow-hidden relative shadow-sm border border-[var(--border-light)]">
             <Canvas
               camera={{ fov: 40, position: [0, 0, 5] }}
-              dpr={[1, 1.5]}
+              dpr={[1, 2]}
               gl={{ antialias: true, alpha: true }}
-              style={{ borderRadius: 'var(--radius-xl)' }}
             >
               <AnatomyScene hovered={hovered} setHovered={setHovered} />
             </Canvas>
-            <div style={{
-              position: 'absolute',
-              bottom: 16,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              fontSize: 12,
-              color: 'var(--gray-600)',
-              fontFamily: 'var(--font-sans)',
-              whiteSpace: 'nowrap',
-            }}>
-              ↻ Drag to rotate  ·  Hover dots to explore
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[11px] uppercase tracking-widest text-[var(--text-gray)] bg-white/80 px-4 py-2 rounded-full backdrop-blur-sm">
+              {t('↻ Drag to rotate · Hover dots to explore', 'घुमाने के लिए खींचें · खोजने के लिए होवर करें')}
             </div>
           </div>
 
           {/* Parts list */}
-          <div style={{ flex: '1 1 340px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {PARTS.map((part) => (
+          <div className="w-full lg:w-1/2 flex flex-col gap-4">
+            {TREATMENTS.map((part) => (
               <div
-                key={part.name}
-                className="card-glass"
-                style={{
-                  padding: '16px 20px',
-                  cursor: 'pointer',
-                  borderColor: hovered === part.name ? 'rgba(0,212,255,0.4)' : undefined,
-                  background: hovered === part.name ? 'rgba(0,212,255,0.05)' : undefined,
-                  boxShadow: hovered === part.name ? '0 0 30px rgba(0,212,255,0.1)' : undefined,
-                  transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={() => setHovered(part.name)}
+                key={part.name.en}
+                className={`p-6 rounded-[24px] cursor-pointer transition-all duration-300 border ${
+                  hovered === part.name.en 
+                    ? 'bg-white border-[#B81104]/30 shadow-md scale-[1.02]' 
+                    : 'bg-white/50 border-[var(--border-light)] hover:bg-white'
+                }`}
+                onMouseEnter={() => setHovered(part.name.en)}
                 onMouseLeave={() => setHovered(null)}
               >
-                <div className="flex items-center gap-3">
-                  <div style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: '50%',
-                    background: hovered === part.name ? '#00D4FF' : part.color,
-                    boxShadow: hovered === part.name ? '0 0 12px #00D4FF' : undefined,
-                    flexShrink: 0,
-                    transition: 'all 0.3s',
-                  }} />
+                <div className="flex items-start gap-4">
+                  <div className="w-3 h-3 rounded-full mt-1.5 flex-shrink-0 transition-transform duration-300"
+                    style={{ 
+                      backgroundColor: hovered === part.name.en ? '#B81104' : part.color,
+                      transform: hovered === part.name.en ? 'scale(1.5)' : 'scale(1)'
+                    }} 
+                  />
                   <div>
-                    <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: 15, color: 'var(--ghost)', marginBottom: 3 }}>
-                      {part.name}
-                    </div>
-                    <div style={{ fontSize: 13, color: 'var(--gray-400)', lineHeight: 1.5 }}>
-                      {part.description}
-                    </div>
+                    <h3 className="font-serif text-[18px] text-[var(--text-dark)] mb-2">
+                      {lang === 'en' ? part.name.en : part.name.hi}
+                    </h3>
+                    <p className="text-[14px] text-[var(--text-gray)] leading-relaxed">
+                      {lang === 'en' ? part.description.en : part.description.hi}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -211,5 +170,3 @@ export default function ToothAnatomy() {
     </section>
   );
 }
-
-useGLTF.preload('/models/inside_my_tooth.glb');
