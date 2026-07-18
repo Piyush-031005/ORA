@@ -29,7 +29,7 @@ export default function Navbar() {
           scrolled ? 'py-4 shadow-sm' : 'py-8'
         }`}
         style={scrolled ? {
-          background: 'rgba(253, 251, 247, 0.9)',
+          background: 'rgba(255, 255, 255, 0.9)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           borderBottom: '1px solid var(--border-light)',

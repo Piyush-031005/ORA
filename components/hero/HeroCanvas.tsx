@@ -34,7 +34,7 @@ function ToothCrown() {
 
   return (
     <Float speed={1.2} rotationIntensity={0.06} floatIntensity={0.1}>
-      <group ref={group} scale={2.8} position={[0, 0.3, 0]}>
+      <group ref={group} scale={2.2} position={[0, -0.5, 0]}>
         <primitive object={cloned} />
       </group>
     </Float>
@@ -58,7 +58,7 @@ function ImplantRod() {
   });
 
   return (
-    <group ref={group} position={[0, -2.2, 0]} scale={1.8}>
+    <group ref={group} position={[0, -1.7, 0]} scale={1.5}>
       {/* Main screw body */}
       <mesh castShadow receiveShadow>
         <cylinderGeometry args={[0.18, 0.26, 1.4, 32]} />
@@ -89,10 +89,12 @@ function HeroScene() {
       <directionalLight intensity={1.5} color="#FFE8E4" position={[-5, 3, -5]} />
       <spotLight color="#FFFFFF" intensity={4} distance={20} angle={0.5} penumbra={1} position={[0, 5, 5]} />
 
-      <ToothCrown />
-      <ImplantRod />
+      <group position={[0, 0, 0]}>
+        <ToothCrown />
+        <ImplantRod />
+      </group>
 
-      <ContactShadows position={[0, -3.5, 0]} opacity={0.25} scale={12} blur={2.5} color="#8B0000" />
+      <ContactShadows position={[0, -3.0, 0]} opacity={0.25} scale={12} blur={2.5} color="#8B0000" />
       <Environment preset="studio" />
       <AdaptiveDpr pixelated />
     </>
