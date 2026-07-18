@@ -27,28 +27,28 @@ export default function Hero() {
       style={{ paddingTop: '100px', paddingBottom: '60px' }}
     >
       <div className="container-ora relative z-10 w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8 lg:gap-0 items-center">
           {/* Content (Left) */}
-          <div className="animate-fade-up">
-            <div className="flex items-center gap-4 mb-6">
+          <div className="animate-fade-up md:pl-8 lg:pl-12">
+            <div className="flex items-center gap-4 mb-6 md:mb-8">
               <div className="w-10 h-[1px] bg-[#B81104]" />
               <span className="text-label text-[#B81104]">
                 {t('Specialist-Led Dental Care', 'विशेषज्ञ दंत चिकित्सा')}
               </span>
             </div>
 
-            <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(42px, 6vw, 80px)', fontWeight: 400, lineHeight: 1.1, letterSpacing: '-0.02em' }} className="text-[var(--text-dark)] mb-6">
+            <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(52px, 7.5vw, 100px)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em' }} className="text-[var(--text-dark)] mb-6 md:mb-8">
               <span className="block">{t('A smile', 'एक मुस्कान')}</span>
               <span className="block italic text-[var(--text-gray)]">{t('carefully', 'ध्यान से')}</span>
               <span 
-                className="inline-block bg-[#B81104] text-white font-serif italic mt-2"
-                style={{ padding: '4px 20px 6px', fontSize: 'clamp(38px, 5.5vw, 74px)' }}
+                className="inline-block bg-[#B81104] text-white font-serif italic mt-3 shadow-lg"
+                style={{ padding: '6px 28px 10px', fontSize: 'clamp(46px, 7vw, 92px)', borderRadius: '2px' }}
               >
                 {t('rebuilt.', 'बनाई गई।')}
               </span>
             </h1>
 
-            <p className="text-body-lg max-w-[480px] mb-10">
+            <p className="text-body-lg max-w-[500px] mb-10 md:mb-12" style={{ fontSize: 'clamp(18px, 2.2vw, 24px)' }}>
               {t(
                 "When life, time, or past dentistry leaves a mark, specialist-led care can rewrite the ending.",
                 "जब जीवन, समय या पुरानी दंत चिकित्सा कोई निशान छोड़ जाती है, तो विशेषज्ञ देखभाल उसे बदल सकती है।"
@@ -82,7 +82,11 @@ export default function Hero() {
           </div>
 
           {/* 3D Canvas Container (Right) — fixed height, centered */}
-          <div className="relative w-full flex items-center justify-center" style={{ height: '70vh', minHeight: '450px', maxHeight: '700px' }}>
+          <div className="relative w-full flex items-center justify-center -ml-4 lg:-ml-12" style={{ height: '70vh', minHeight: '450px', maxHeight: '700px' }}>
+            {/* Milano Red Background shape to make the tooth pop */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] max-w-[500px] max-h-[500px] bg-[#B81104] rounded-full blur-[80px] opacity-20 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[60%] max-w-[400px] max-h-[450px] bg-[#B81104] rounded-[100px] opacity-90 shadow-2xl pointer-events-none" />
+            
             <HeroCanvas scrollY={scrollY} />
           </div>
         </div>

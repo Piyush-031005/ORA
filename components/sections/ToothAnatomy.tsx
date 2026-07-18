@@ -35,7 +35,8 @@ function ToothModel() {
   });
 
   return (
-    <group ref={group} rotation={[0.4, 0, 0]}>
+    // Adjust rotation to counter the model's natural slant
+    <group ref={group} rotation={[-0.2, 0, -0.6]}>
       <primitive object={cloned} />
     </group>
   );
@@ -48,7 +49,7 @@ function AnatomyScene() {
       <directionalLight intensity={2.5} color="#ffffff" position={[5, 8, 5]} />
       <pointLight color="#B81104" intensity={2} distance={10} position={[-3, 2, -3]} />
       
-      <Bounds fit clip observe margin={0.75}>
+      <Bounds fit clip observe margin={0.65}>
         <ToothModel />
       </Bounds>
       
@@ -87,7 +88,7 @@ export default function ToothAnatomy() {
           {/* 3D Model — no container box */}
           <div className="w-full lg:w-1/2 h-[500px] relative">
             <Canvas
-              camera={{ fov: 35, position: [0, 1.5, 6] }}
+              camera={{ fov: 35, position: [0, 0, 6] }}
               dpr={[1, 2]}
               gl={{ antialias: true, alpha: true }}
               style={{ background: 'transparent' }}

@@ -94,8 +94,8 @@ function HeroScene({ scrollY }: { scrollY: number }) {
       <directionalLight intensity={1.2} color="#E8EEF3" position={[-5, 3, -5]} />
       <spotLight color="#B81104" intensity={5} distance={15} angle={0.6} penumbra={1} position={[3, -3, -3]} />
 
-      <Bounds fit clip observe margin={1.1}>
-        <group>
+      <Bounds fit clip observe margin={0.9}>
+        <group position={[-0.3, 0, 0]}>
           <ToothCrown scrollY={scrollY} />
           <ImplantRod scrollY={scrollY} />
         </group>
