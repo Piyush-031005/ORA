@@ -38,7 +38,7 @@ function AnatomyModel() {
 
   return (
     // Rotate to counteract the natural diagonal slant of this model (pink gum block goes diagonally)
-    <group ref={ref} rotation={[0.15, 0, 0.82]}>
+    <group ref={ref} rotation={[0.05, 0, 0.12]}>
       <primitive object={cloned} />
     </group>
   );
@@ -48,7 +48,7 @@ export default function ToothAnatomy() {
   const { lang, t } = useLanguage();
 
   return (
-    <section id="treatments-interactive" className="section-py bg-white relative overflow-hidden">
+    <section id="treatments-interactive" className="py-20 md:py-32 bg-white relative overflow-hidden">
       <div className="container-ora">
 
         {/* Header */}
@@ -108,7 +108,7 @@ export default function ToothAnatomy() {
                   maxPolarAngle={Math.PI / 1.5}
                 />
 
-                <Bounds fit clip observe margin={1.6}>
+                <Bounds fit clip observe margin={1.35}>
                   <AnatomyModel />
                 </Bounds>
                 <Environment preset="studio" />
@@ -128,23 +128,18 @@ export default function ToothAnatomy() {
                 key={item.name.en}
                 className="group relative p-5 rounded-[20px] overflow-hidden cursor-default transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
                 style={{
-                  background: i % 3 === 0
-                    ? 'linear-gradient(135deg, #FFF1F0 0%, #FFE4E1 100%)'
-                    : i % 3 === 1
-                    ? 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)'
-                    : 'linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%)',
-                  border: '1px solid rgba(0,0,0,0.06)',
+                  background: i % 2 === 0
+                    ? 'linear-gradient(135deg, #EEF4FF 0%, #D9E8FF 100%)'
+                    : 'linear-gradient(135deg, #F0F5FF 0%, #E4EDFF 100%)',
+                  border: '1px solid rgba(37,99,235,0.08)',
                 }}
               >
                 {/* Icon circle */}
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-xl mb-4"
                   style={{
-                    background: i % 3 === 0
-                      ? 'rgba(184,17,4,0.1)'
-                      : i % 3 === 1
-                      ? 'rgba(37,99,235,0.1)'
-                      : 'rgba(5,150,105,0.1)',
+                    background: 'rgba(37,99,235,0.08)',
+                    boxShadow: '0 2px 8px rgba(37,99,235,0.08)',
                   }}
                 >
                   {item.icon}
@@ -160,7 +155,7 @@ export default function ToothAnatomy() {
                 {/* Hover accent line */}
                 <div
                   className="absolute bottom-0 left-0 right-0 h-[3px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                  style={{ backgroundColor: i % 3 === 0 ? '#B81104' : i % 3 === 1 ? '#2563EB' : '#059669' }}
+                  style={{ background: 'linear-gradient(90deg, #2563EB, #60A5FA)' }}
                 />
               </div>
             ))}

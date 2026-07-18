@@ -23,8 +23,8 @@ export default function Hero() {
       <div className="relative w-full h-[100dvh] min-h-[640px] flex flex-col md:flex-row">
 
         {/* LEFT — Text Panel (shifted right) */}
-        <div className="relative z-20 flex flex-col justify-center w-full md:w-[52%] px-10 md:pl-24 lg:pl-36 xl:pl-44 py-16 md:py-0">
-          
+        <div className="relative z-20 flex flex-col justify-center w-full md:w-[52%] px-10 md:pl-16 lg:pl-24 xl:pl-32 py-16 md:py-0">
+
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-[2px] bg-[#B81104]" />
             <span style={{ fontSize: '11px', letterSpacing: '0.2em', fontWeight: 500, textTransform: 'uppercase', color: '#B81104' }}>
@@ -58,7 +58,7 @@ export default function Hero() {
               style={{ backgroundColor: '#B81104', fontSize: '13px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.16em', boxShadow: '0 8px 32px rgba(184,17,4,0.3)' }}
             >
               {t('Book Consultation', 'परामर्श बुक करें')}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </Link>
             <Link
               href="#treatments-interactive"
