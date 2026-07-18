@@ -36,7 +36,7 @@ const DOCTORS = [
       en: 'Dr. Patel blends art and science to craft stunning smiles. Her expertise lies in veneers, teeth whitening, and complete smile makeovers.', 
       hi: 'डॉ. पटेल आश्चर्यजनक मुस्कान गढ़ने के लिए कला और विज्ञान का मिश्रण करती हैं। उनकी विशेषज्ञता विनियर और दांतों को सफेद करने में है।'
     },
-    image: '/images/before-after/doctor-ref.png',
+    image: '/images/dr-ananya.png',
   },
   {
     name: 'Dr. Vikram Joshi',

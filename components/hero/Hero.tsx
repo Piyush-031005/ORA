@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
@@ -8,8 +7,8 @@ import { useLanguage } from '@/context/LanguageContext';
 const HeroCanvas = dynamic(() => import('./HeroCanvas'), {
   ssr: false,
   loading: () => (
-    <div style={{ position: 'absolute', inset: 0, borderRadius: '32px', backgroundColor: '#B81104' }} />
-  )
+    <div style={{ position: 'absolute', inset: 0, borderRadius: '28px', backgroundColor: '#B81104' }} />
+  ),
 });
 
 export default function Hero() {
@@ -18,67 +17,138 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full min-h-[100dvh] bg-white overflow-hidden flex items-center"
-      style={{ paddingTop: '100px', paddingBottom: '60px' }}
+      className="relative w-full min-h-[100dvh] bg-white overflow-hidden"
+      style={{ paddingTop: '80px' }}
     >
-      <div className="container-ora relative z-10 w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-6 items-center">
-          {/* Content (Left) — shifted right with padding */}
-          <div className="animate-fade-up md:pl-6 lg:pl-16">
-            <div className="flex items-center gap-4 mb-6 md:mb-8">
-              <div className="w-12 h-[2px] bg-[#B81104]" />
-              <span className="text-label text-[#B81104]" style={{ fontSize: '13px', letterSpacing: '0.18em' }}>
-                {t('Specialist-Led Dental Care', 'विशेषज्ञ दंत चिकित्सा')}
-              </span>
-            </div>
+      {/* Full-page layout inspired by Dentiva reference */}
+      <div className="relative w-full h-[100dvh] min-h-[640px] flex flex-col md:flex-row">
 
-            <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(56px, 8vw, 110px)', fontWeight: 400, lineHeight: 1.02, letterSpacing: '-0.02em' }} className="text-[var(--text-dark)] mb-8">
-              <span className="block">{t('A smile', 'एक मुस्कान')}</span>
-              <span className="block italic text-[var(--text-gray)]">{t('carefully', 'ध्यान से')}</span>
-              <span 
-                className="inline-block bg-[#B81104] text-white font-serif italic mt-3 shadow-xl"
-                style={{ padding: '8px 32px 12px', fontSize: 'clamp(50px, 7.5vw, 100px)', borderRadius: '4px' }}
-              >
-                {t('rebuilt.', 'बनाई गई।')}
-              </span>
-            </h1>
-
-            <p className="max-w-[500px] mb-10 md:mb-12" style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(17px, 2vw, 21px)', fontWeight: 300, lineHeight: 1.7, color: 'var(--text-gray)' }}>
-              {t(
-                "When life, time, or past dentistry leaves a mark, specialist-led care can rewrite the ending.",
-                "जब जीवन, समय या पुरानी दंत चिकित्सा कोई निशान छोड़ जाती है, तो विशेषज्ञ देखभाल उसे बदल सकती है।"
-              )}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <Link href="#queue" className="btn btn-primary" style={{ backgroundColor: '#B81104' }}>
-                {t('Book Consultation', 'परामर्श बुक करें')}
-              </Link>
-              <Link href="#treatments-interactive" className="btn btn-outline">
-                {t("Discover What's Possible", 'हमारी विशेषज्ञता देखें')}
-              </Link>
-            </div>
-
-            {/* Stats */}
-            <div className="flex flex-wrap gap-10 mt-12 pt-8 border-t border-[var(--border-light)]">
-              <div>
-                <div className="text-[30px] font-serif text-[var(--text-dark)] leading-none mb-1">10k+</div>
-                <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--text-gray)]">
-                  {t('Smiles Restored', 'मुस्कानें बहाल की गईं')}
-                </div>
-              </div>
-              <div>
-                <div className="text-[30px] font-serif text-[var(--text-dark)] leading-none mb-1">15</div>
-                <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--text-gray)]">
-                  {t('Years Experience', 'वर्षों का अनुभव')}
-                </div>
-              </div>
-            </div>
+        {/* LEFT — Text Panel */}
+        <div className="relative z-20 flex flex-col justify-center w-full md:w-[48%] px-8 md:pl-16 lg:pl-24 py-16 md:py-0">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-10 h-[2px] bg-[#B81104]" />
+            <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-[#B81104]">
+              {t('Specialist-Led Dental Care', 'विशेषज्ञ दंत चिकित्सा')}
+            </span>
           </div>
 
-          {/* 3D Canvas Container (Right) — Milano Red background with rounded corners */}
-          <div className="relative w-full flex items-center justify-center" style={{ height: '65vh', minHeight: '420px', maxHeight: '650px' }}>
+          <h1
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(48px, 6.5vw, 92px)',
+              fontWeight: 400,
+              lineHeight: 1.04,
+              letterSpacing: '-0.025em',
+              color: 'var(--text-dark)',
+            }}
+            className="mb-8"
+          >
+            <span className="block">
+              {t('Exceptional', 'असाधारण')}
+            </span>
+            <span className="block italic" style={{ color: 'var(--text-gray)' }}>
+              {t('Dental Care', 'दंत चिकित्सा')}
+            </span>
+            <span className="block">
+              {t('& Straight', 'और सुंदर')}
+            </span>
+            <span
+              className="inline-block font-serif italic"
+              style={{
+                color: '#B81104',
+                fontSize: 'clamp(44px, 6vw, 88px)',
+              }}
+            >
+              {t('Smile.', 'मुस्कान।')}
+            </span>
+          </h1>
+
+          <p
+            className="max-w-[420px] mb-10"
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'clamp(15px, 1.8vw, 19px)',
+              fontWeight: 300,
+              lineHeight: 1.75,
+              color: 'var(--text-gray)',
+            }}
+          >
+            {t(
+              'We combine specialist expertise with cinematic precision to ensure every smile transformation is the finest of your life.',
+              'हम हर मुस्कान को सुंदर बनाने के लिए विशेषज्ञता और आधुनिक तकनीक का उपयोग करते हैं।'
+            )}
+          </p>
+
+          <div className="flex flex-wrap items-center gap-4 mb-12">
+            <Link
+              href="#queue"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white text-[13px] font-medium uppercase tracking-widest transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              style={{ backgroundColor: '#B81104', boxShadow: '0 8px 32px rgba(184,17,4,0.3)' }}
+            >
+              {t('Book Consultation', 'परामर्श बुक करें')}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </Link>
+            <Link
+              href="#treatments-interactive"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-[13px] font-medium uppercase tracking-widest border border-[var(--border-strong)] hover:border-[#B81104] hover:text-[#B81104] transition-all duration-300"
+              style={{ color: 'var(--text-dark)' }}
+            >
+              {t('Our Services', 'सेवाएं')}
+            </Link>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex gap-8">
+            {[
+              { n: '10k+', label: t('Smiles Restored', 'मुस्कानें') },
+              { n: '15+', label: t('Years Experience', 'वर्षों का अनुभव') },
+              { n: '4.9★', label: t('Google Rating', 'रेटिंग') },
+            ].map((s) => (
+              <div key={s.label}>
+                <div className="font-serif text-[28px] text-[var(--text-dark)] leading-none mb-1">{s.n}</div>
+                <div className="text-[10px] uppercase tracking-[0.12em] text-[var(--text-gray)] font-medium">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* RIGHT — Milano Red 3D Canvas panel */}
+        <div
+          className="relative w-full md:w-[52%] h-[55vw] md:h-full"
+          style={{ minHeight: '400px' }}
+        >
+          {/* Clip shape – diagonal edge on left side */}
+          <div
+            className="absolute inset-0"
+            style={{
+              clipPath: 'polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%)',
+              backgroundColor: '#B81104',
+              borderRadius: '0 0 0 0',
+            }}
+          />
+          {/* Canvas inside the red shape */}
+          <div
+            className="absolute inset-0"
+            style={{ clipPath: 'polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%)' }}
+          >
             <HeroCanvas />
+          </div>
+
+          {/* Subtle radial glow behind the tooth */}
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] rounded-full pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle, rgba(255,200,190,0.25) 0%, transparent 70%)',
+              clipPath: 'polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%)',
+            }}
+          />
+
+          {/* "Red" label watermark for feel */}
+          <div
+            className="absolute bottom-8 right-8 text-white/20 font-serif italic pointer-events-none select-none hidden md:block"
+            style={{ fontSize: 'clamp(60px, 8vw, 120px)', lineHeight: 1 }}
+          >
+            ORA
           </div>
         </div>
       </div>
