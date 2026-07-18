@@ -82,13 +82,16 @@ export default function Reviews() {
                 transition: `all 0.8s var(--ease-smooth) ${i * 0.15}s`,
               }}
             >
-              {/* Before/After Image — reduced height */}
-              <div className="w-full h-[220px] relative overflow-hidden bg-white/50 border-b border-[var(--border-light)]">
+              {/* Before/After Image — compact */}
+              <div className="w-full h-[160px] relative overflow-hidden bg-[#1A1A1A]">
                 <img 
                   src={review.image} 
                   alt={`${review.author} - Before and After`} 
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover object-center opacity-90"
                 />
+                <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[9px] uppercase tracking-widest px-3 py-1 rounded-full backdrop-blur-sm">
+                  Before → After
+                </div>
               </div>
 
               {/* Review Content */}

@@ -2,12 +2,11 @@
 
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Environment, Float, ContactShadows, AdaptiveDpr, Bounds } from '@react-three/drei';
+import { useGLTF, Environment, Float, ContactShadows, AdaptiveDpr } from '@react-three/drei';
 import * as THREE from 'three';
-import { lerp } from '@/lib/three/utils';
 
 // ─── Tooth Crown ────────────────────────────────────────────────
-function ToothCrown({ scrollY }: { scrollY: number }) {
+function ToothCrown() {
   const group = useRef<THREE.Group>(null!);
   const { scene } = useGLTF('/models/tooth.glb');
 
@@ -30,14 +29,12 @@ function ToothCrown({ scrollY }: { scrollY: number }) {
 
   useFrame(({ clock }) => {
     if (!group.current) return;
-    group.current.rotation.y = clock.getElapsedTime() * 0.2;
-    const scrollProgress = Math.min(scrollY / 800, 1);
-    group.current.position.y = lerp(0, 1, scrollProgress);
+    group.current.rotation.y = clock.getElapsedTime() * 0.15;
   });
 
   return (
-    <Float speed={1.2} rotationIntensity={0.08} floatIntensity={0.15}>
-      <group ref={group} position={[0, 0.6, 0]}>
+    <Float speed={1.2} rotationIntensity={0.06} floatIntensity={0.1}>
+      <group ref={group} scale={2.8} position={[0, 0.3, 0]}>
         <primitive object={cloned} />
       </group>
     </Float>
@@ -45,7 +42,7 @@ function ToothCrown({ scrollY }: { scrollY: number }) {
 }
 
 // ─── Metallic Implant Rod ───────────────────────────────────────
-function ImplantRod({ scrollY }: { scrollY: number }) {
+function ImplantRod() {
   const group = useRef<THREE.Group>(null!);
   
   const mat = useMemo(() => new THREE.MeshStandardMaterial({
@@ -57,28 +54,26 @@ function ImplantRod({ scrollY }: { scrollY: number }) {
 
   useFrame(({ clock }) => {
     if (!group.current) return;
-    group.current.rotation.y = clock.getElapsedTime() * 0.2;
-    const scrollProgress = Math.min(scrollY / 800, 1);
-    group.current.position.y = lerp(-1.1, -0.5, scrollProgress);
+    group.current.rotation.y = clock.getElapsedTime() * 0.15;
   });
 
   return (
-    <group ref={group} position={[0, -1.1, 0]}>
-      {/* Main screw body - tapered */}
+    <group ref={group} position={[0, -2.2, 0]} scale={1.8}>
+      {/* Main screw body */}
       <mesh castShadow receiveShadow>
-        <cylinderGeometry args={[0.2, 0.28, 1.2, 32]} />
+        <cylinderGeometry args={[0.18, 0.26, 1.4, 32]} />
         <primitive object={mat} attach="material" />
       </mesh>
       {/* Screw thread rings */}
-      {[-0.35, -0.15, 0.05, 0.25].map((y, i) => (
+      {[-0.4, -0.2, 0.0, 0.2, 0.4].map((y, i) => (
         <mesh key={i} position={[0, y, 0]} castShadow>
-          <torusGeometry args={[0.22 + i * 0.015, 0.025, 8, 32]} />
+          <torusGeometry args={[0.21 + i * 0.01, 0.02, 8, 32]} />
           <primitive object={mat} attach="material" />
         </mesh>
       ))}
       {/* Top connector abutment */}
-      <mesh position={[0, 0.7, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[0.1, 0.18, 0.25, 32]} />
+      <mesh position={[0, 0.8, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.08, 0.16, 0.2, 32]} />
         <primitive object={mat} attach="material" />
       </mesh>
     </group>
@@ -86,22 +81,18 @@ function ImplantRod({ scrollY }: { scrollY: number }) {
 }
 
 // ─── Scene ───────────────────────────────────────────────────────
-function HeroScene({ scrollY }: { scrollY: number }) {
+function HeroScene() {
   return (
     <>
-      <ambientLight intensity={0.9} color="#FFFFFF" />
-      <directionalLight intensity={2.5} color="#FFFFFF" position={[5, 8, 5]} castShadow shadow-mapSize={[1024, 1024]} />
-      <directionalLight intensity={1.2} color="#E8EEF3" position={[-5, 3, -5]} />
-      <spotLight color="#B81104" intensity={5} distance={15} angle={0.6} penumbra={1} position={[3, -3, -3]} />
+      <ambientLight intensity={1.2} color="#FFFFFF" />
+      <directionalLight intensity={3} color="#FFFFFF" position={[5, 8, 5]} castShadow />
+      <directionalLight intensity={1.5} color="#FFE8E4" position={[-5, 3, -5]} />
+      <spotLight color="#FFFFFF" intensity={4} distance={20} angle={0.5} penumbra={1} position={[0, 5, 5]} />
 
-      <Bounds fit clip observe margin={0.9}>
-        <group position={[-0.3, 0, 0]}>
-          <ToothCrown scrollY={scrollY} />
-          <ImplantRod scrollY={scrollY} />
-        </group>
-      </Bounds>
+      <ToothCrown />
+      <ImplantRod />
 
-      <ContactShadows position={[0, -2.2, 0]} opacity={0.15} scale={8} blur={2.5} color="#1E3A5F" />
+      <ContactShadows position={[0, -3.5, 0]} opacity={0.25} scale={12} blur={2.5} color="#8B0000" />
       <Environment preset="studio" />
       <AdaptiveDpr pixelated />
     </>
@@ -109,15 +100,16 @@ function HeroScene({ scrollY }: { scrollY: number }) {
 }
 
 // ─── Export ──────────────────────────────────────────────────────
-export default function HeroCanvas({ scrollY }: { scrollY: number }) {
+export default function HeroCanvas() {
   return (
     <Canvas
-      camera={{ fov: 45, near: 0.1, far: 100, position: [0, 0, 6] }}
+      camera={{ fov: 40, near: 0.1, far: 100, position: [0, 0, 8] }}
       dpr={[1, 2]}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-      style={{ position: 'absolute', inset: 0 }}
+      gl={{ antialias: true, powerPreference: 'high-performance' }}
+      style={{ position: 'absolute', inset: 0, borderRadius: '32px' }}
     >
-      <HeroScene scrollY={scrollY} />
+      <color attach="background" args={['#B81104']} />
+      <HeroScene />
     </Canvas>
   );
 }

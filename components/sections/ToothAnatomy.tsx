@@ -35,8 +35,7 @@ function ToothModel() {
   });
 
   return (
-    // Adjust rotation to counter the model's natural slant
-    <group ref={group} rotation={[-0.2, 0, -0.6]}>
+    <group ref={group}>
       <primitive object={cloned} />
     </group>
   );
