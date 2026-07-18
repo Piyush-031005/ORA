@@ -106,7 +106,7 @@ export default function QueueBooking() {
 
   return (
     <section id="queue" className="section-py bg-[#F3F6F8]">
-      <div className="container-ora relative z-10">
+      <div className="container-ora relative z-10" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         
         {/* Header */}
         <div className="text-center mb-14 max-w-[700px] mx-auto">
@@ -132,7 +132,7 @@ export default function QueueBooking() {
         </div>
 
         {/* Live Stats */}
-        <div className="bg-white rounded-[32px] p-6 md:p-8 flex flex-wrap gap-8 justify-between items-center mb-10 max-w-[800px] mx-auto shadow-sm border border-[var(--border-light)]">
+        <div className="bg-white rounded-[32px] p-6 md:p-8 flex flex-wrap gap-8 justify-between items-center mb-10 w-full max-w-[660px] shadow-sm border border-[var(--border-light)]">
           <div className="flex items-center gap-3">
             <div className={`w-3 h-3 rounded-full ${isOpen ? 'bg-[#22C55E]' : 'bg-[#EF4444]'}`} />
             <span className={`font-semibold text-sm ${isOpen ? 'text-[#1E4620]' : 'text-[#A1140A]'}`}>
@@ -155,7 +155,7 @@ export default function QueueBooking() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-[#B81104] text-white rounded-[40px] p-8 md:p-12 max-w-[600px] mx-auto shadow-2xl shadow-[#B81104]/20 relative overflow-hidden">
+        <div className="bg-[#B81104] text-white rounded-[40px] p-8 md:p-12 w-full max-w-[660px] shadow-2xl shadow-[#B81104]/20 relative overflow-hidden">
           {/* Subtle bg decoration */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
 

@@ -7,33 +7,33 @@ import { useLanguage } from '@/context/LanguageContext';
 const REVIEWS = [
   {
     text: {
-      en: "I was terrified of the dentist for years until I found ORA. Dr. Sharma's approach was so gentle and professional.",
-      hi: "ORA मिलने से पहले मैं सालों तक डेंटिस्ट से डरती थी। डॉ. शर्मा का दृष्टिकोण बहुत कोमल और पेशेवर था।"
+      en: "I had lost my two front teeth in an accident years ago. Dr. Sharma gave me implants that look completely natural. Nobody can tell the difference. I finally smile with confidence again.",
+      hi: "मैंने सालों पहले एक दुर्घटना में अपने दो सामने के दांत खो दिए थे। डॉ. शर्मा ने मुझे ऐसे इंप्लांट दिए जो पूरी तरह प्राकृतिक दिखते हैं।"
     },
-    author: "Neha Kapoor",
-    treatment: "Full Mouth Rehabilitation",
-    beforeImage: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=400&auto=format&fit=crop",
-    afterImage: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=400&auto=format&fit=crop"
-  },
-  {
-    text: {
-      en: "The precision is unmatched. My implant procedure was completely painless, and the recovery was incredibly fast.",
-      hi: "सटीकता बेजोड़ है। मेरी प्रत्यारोपण प्रक्रिया पूरी तरह से दर्द रहित थी, और रिकवरी अविश्वसनीय रूप से तेज थी।"
-    },
-    author: "Vikram Singh",
+    author: "Rajesh Kumar",
+    age: 42,
     treatment: "Dental Implants",
-    beforeImage: "https://images.unsplash.com/photo-1598256989800-fea5f95b5cf4?q=80&w=400&auto=format&fit=crop",
-    afterImage: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?q=80&w=400&auto=format&fit=crop"
+    image: "/images/before-after/case1.png"
   },
   {
     text: {
-      en: "I couldn't stop smiling after my veneers were done. Dr. Patel delivered results that exceeded my expectations.",
-      hi: "मेरे विनियर बन जाने के बाद मैं मुस्कुराना बंद नहीं कर सका। डॉ. पटेल ने उम्मीदों से बेहतर परिणाम दिए।"
+      en: "My teeth were badly decayed and discoloured for years. The full mouth rehabilitation at ORA completely transformed my smile. The team was patient and explained every step clearly.",
+      hi: "मेरे दांत सालों से बुरी तरह सड़े हुए थे। ORA में पूर्ण मुख पुनर्वास ने मेरी मुस्कान को पूरी तरह बदल दिया।"
     },
-    author: "Aisha Desai",
-    treatment: "Porcelain Veneers",
-    beforeImage: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=400&auto=format&fit=crop",
-    afterImage: "https://images.unsplash.com/photo-1522845015757-50bce044e5da?q=80&w=400&auto=format&fit=crop"
+    author: "Suresh Patel",
+    age: 55,
+    treatment: "Full Mouth Restoration",
+    image: "/images/before-after/case2.png"
+  },
+  {
+    text: {
+      en: "I always hid my smile because of gaps and crooked teeth. The smile design treatment gave me perfectly aligned, bright white teeth. It changed my life and boosted my self-esteem.",
+      hi: "मैं हमेशा अपनी मुस्कान छुपाता था क्योंकि दांतों में गैप और टेढ़ापन था। स्माइल डिज़ाइन ट्रीटमेंट ने मुझे बिल्कुल सीधे, चमकदार सफ़ेद दांत दिए।"
+    },
+    author: "Amit Verma",
+    age: 38,
+    treatment: "Smile Design",
+    image: "/images/before-after/case3.png"
   }
 ];
 
@@ -62,12 +62,12 @@ export default function Reviews() {
             </span>
             <div className="w-8 h-[1px] bg-[#B81104]" />
           </div>
-          <h2 className="display-lg text-[var(--text-dark)] mb-6">
-            {t('Smiles that', 'मुस्कान जो')} <br />
-            <span className="italic text-[var(--text-gray)]">
-              {t('speak for themselves.', 'खुद बोलती हैं।')}
-            </span>
+          <h2 className="display-lg text-[var(--text-dark)] mb-4">
+            {t('Real results.', 'असली परिणाम।')}
           </h2>
+          <p className="italic text-[var(--text-gray)]" style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(28px, 4vw, 48px)' }}>
+            {t('Real smiles.', 'असली मुस्कान।')}
+          </p>
         </div>
 
         {/* Reviews Grid */}
@@ -75,46 +75,39 @@ export default function Reviews() {
           {REVIEWS.map((review, i) => (
             <div 
               key={i}
-              className="bg-[var(--bg-cream)] rounded-[32px] border border-[var(--border-light)] relative overflow-hidden flex flex-col shadow-sm"
+              className="bg-[var(--bg-cream)] rounded-[24px] border border-[var(--border-light)] overflow-hidden flex flex-col shadow-sm"
               style={{
                 opacity: inView ? 1 : 0,
                 transform: inView ? 'none' : 'translateY(40px)',
                 transition: `all 0.8s var(--ease-smooth) ${i * 0.15}s`,
               }}
             >
-              {/* Before/After Images - Top Section */}
-              <div className="flex w-full h-[180px] bg-gray-100 p-1">
-                <div className="w-1/2 relative rounded-l-[28px] overflow-hidden group">
-                  <img src={review.beforeImage} alt="Before" className="w-full h-full object-cover grayscale opacity-90 transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute top-3 left-3 bg-black/60 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full backdrop-blur-md">
-                    Before
-                  </div>
-                </div>
-                <div className="w-1/2 relative rounded-r-[28px] overflow-hidden group ml-1">
-                  <img src={review.afterImage} alt="After" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  <div className="absolute top-3 right-3 bg-[#B81104]/90 text-white text-[9px] uppercase tracking-widest px-2 py-1 rounded-full backdrop-blur-md">
-                    After
-                  </div>
-                </div>
+              {/* Before/After Image — single stacked image */}
+              <div className="w-full aspect-[4/5] relative overflow-hidden bg-gray-100">
+                <img 
+                  src={review.image} 
+                  alt={`${review.author} - Before and After`} 
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
 
-              {/* Review Content - Bottom Section */}
-              <div className="p-8 flex-1 flex flex-col justify-between">
-                <div className="relative">
-                  <span className="text-[#B81104] font-serif text-[48px] leading-none absolute -top-4 -left-2 opacity-20">
-                    &ldquo;
-                  </span>
-                  <p className="text-[15px] text-[var(--text-dark)] leading-relaxed italic z-10 relative pt-2">
-                    "{lang === 'en' ? review.text.en : review.text.hi}"
-                  </p>
-                </div>
+              {/* Review Content */}
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <p className="text-[14px] text-[var(--text-dark)] leading-relaxed mb-6">
+                  "{lang === 'en' ? review.text.en : review.text.hi}"
+                </p>
                 
-                <div className="pt-6 mt-6 border-t border-[var(--border-light)]">
-                  <div className="font-serif font-bold text-[18px] text-[var(--text-dark)] mb-1">
-                    {review.author}
-                  </div>
-                  <div className="text-[11px] uppercase tracking-widest text-[#B81104]">
-                    {review.treatment}
+                <div className="pt-4 border-t border-[var(--border-light)]">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-serif text-[16px] text-[var(--text-dark)] mb-0.5">
+                        {review.author}, {review.age}
+                      </div>
+                      <div className="text-[10px] uppercase tracking-widest text-[#B81104] font-medium">
+                        {review.treatment}
+                      </div>
+                    </div>
+                    <div className="text-[#F59E0B] text-sm">★★★★★</div>
                   </div>
                 </div>
               </div>
@@ -123,10 +116,7 @@ export default function Reviews() {
         </div>
 
         {/* Trust Indicators */}
-        <div 
-          className="mt-16 flex flex-wrap justify-center gap-12 items-center opacity-0 animate-fade-up"
-          style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}
-        >
+        <div className="mt-16 flex flex-wrap justify-center gap-12 items-center">
           <div className="text-center">
             <div className="font-serif text-3xl text-[var(--text-dark)] mb-1">4.9/5</div>
             <div className="text-[10px] uppercase tracking-widest text-[var(--text-gray)] flex items-center justify-center gap-2">
