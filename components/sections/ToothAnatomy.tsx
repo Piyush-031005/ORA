@@ -47,7 +47,7 @@ function AnatomyScene() {
       <directionalLight intensity={2.5} color="#ffffff" position={[5, 8, 5]} />
       <pointLight color="#B81104" intensity={2} distance={10} position={[-3, 2, -3]} />
       
-      <Bounds fit clip observe margin={1.3}>
+      <Bounds fit clip observe margin={0.95}>
         <ToothModel />
       </Bounds>
       
