@@ -64,7 +64,7 @@ function DoctorRow({ doctor, index }: { doctor: typeof DOCTORS[0]; index: number
   // Common Info Panel content to keep the code DRY
   const infoPanel = (
     <div
-      className="w-full flex flex-col justify-center p-8 md:p-12 lg:p-16 text-left relative overflow-hidden"
+      className="w-full flex flex-col justify-center items-center text-center p-8 md:p-12 lg:p-16 relative overflow-hidden"
       style={{ backgroundColor: '#B81104', minHeight: '400px' }}
     >
       {/* Decorative watermark number */}
@@ -76,11 +76,12 @@ function DoctorRow({ doctor, index }: { doctor: typeof DOCTORS[0]; index: number
       </div>
 
       {/* Experience badge */}
-      <div className="inline-flex items-center gap-2 mb-6">
+      <div className="inline-flex items-center justify-center gap-2 mb-6">
         <div className="w-8 h-[2px] bg-white/60" />
         <span style={{ fontSize: '11px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
           {doctor.experience} {lang === 'en' ? 'Years Experience' : 'वर्षों का अनुभव'}
         </span>
+        <div className="w-8 h-[2px] bg-white/60" />
       </div>
 
       {/* Name */}
@@ -105,7 +106,7 @@ function DoctorRow({ doctor, index }: { doctor: typeof DOCTORS[0]; index: number
       </p>
 
       {/* Tags */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap justify-center gap-2">
         {doctor.tags.map((tag) => (
           <span
             key={tag}
