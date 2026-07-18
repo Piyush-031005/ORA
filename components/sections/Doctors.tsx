@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useInView } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -11,21 +11,23 @@ const DOCTORS = [
     specialization: { en: 'Orthodontist & Implantologist', hi: 'ऑर्थोडॉन्टिस्ट और इंप्लांटोलॉजिस्ट' },
     experience: '12',
     description: { 
-      en: 'With over 12 years of experience, Dr. Sharma is an expert in delivering advanced specialist-led care for complex orthodontic and dental implant cases.', 
-      hi: '12 वर्षों से अधिक के अनुभव के साथ, डॉ. शर्मा जटिल ऑर्थोडॉन्टिक और दंत प्रत्यारोपण मामलों के लिए उन्नत विशेषज्ञ-नेतृत्व वाली देखभाल प्रदान करने में विशेषज्ञ हैं।'
+      en: 'With over 12 years of specialist experience, Dr. Sharma delivers advanced care for complex orthodontic and implant cases with unmatched precision.', 
+      hi: '12 वर्षों से अधिक के अनुभव के साथ, डॉ. शर्मा जटिल ऑर्थोडॉन्टिक और दंत प्रत्यारोपण मामलों में विशेषज्ञ हैं।'
     },
     image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop',
+    tags: ['Orthodontics', 'Implants', 'Clear Aligners'],
   },
   {
     name: 'Dr. Rahul Mehta',
     qualifications: 'BDS, MDS (Endodontics)',
-    specialization: { en: 'Endodontist (Root Canal Specialist)', hi: 'एंडोडोंटिस्ट (रूट कैनाल)' },
+    specialization: { en: 'Root Canal Specialist', hi: 'रूट कैनाल विशेषज्ञ' },
     experience: '15',
     description: { 
-      en: 'Board-certified and precision-trained, Dr. Mehta specializes in pain-free root canals and preserving natural teeth using microscope-assisted dentistry.', 
-      hi: 'बोर्ड-प्रमाणित और सटीक-प्रशिक्षित, डॉ. मेहता दर्द रहित रूट कैनाल और प्राकृतिक दांतों को संरक्षित करने में विशेषज्ञ हैं।'
+      en: 'Board-certified and microscope-trained, Dr. Mehta has mastered pain-free root canals and endodontic microsurgery over 15 years of practice.', 
+      hi: 'बोर्ड-प्रमाणित और माइक्रोस्कोप-प्रशिक्षित, डॉ. मेहता 15 वर्षों के अभ्यास में दर्द रहित रूट कैनाल के विशेषज्ञ हैं।'
     },
     image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop', 
+    tags: ['Root Canal', 'Endodontics', 'Microsurgery'],
   },
   {
     name: 'Dr. Ananya Patel',
@@ -33,76 +35,108 @@ const DOCTORS = [
     specialization: { en: 'Cosmetic Dentist', hi: 'कॉस्मेटिक डेंटिस्ट' },
     experience: '9',
     description: { 
-      en: 'Dr. Patel blends art and science to craft stunning smiles. Her expertise lies in veneers, teeth whitening, and complete smile makeovers.', 
-      hi: 'डॉ. पटेल आश्चर्यजनक मुस्कान गढ़ने के लिए कला और विज्ञान का मिश्रण करती हैं। उनकी विशेषज्ञता विनियर और दांतों को सफेद करने में है।'
+      en: 'Dr. Patel blends art and science to craft stunning smile makeovers. Her expertise in veneers, whitening and smile design has transformed thousands of smiles.', 
+      hi: 'डॉ. पटेल कला और विज्ञान का मिश्रण करके आश्चर्यजनक स्माइल मेकओवर तैयार करती हैं। विनियर और दांतों को सफेद करने में उनकी विशेषज्ञता ने हजारों मुस्कानों को बदला है।'
     },
     image: '/images/dr-ananya.png',
+    tags: ['Veneers', 'Smile Design', 'Whitening'],
   },
   {
     name: 'Dr. Vikram Joshi',
     qualifications: 'BDS, MDS (Oral & Maxillofacial Surgery)',
-    specialization: { en: 'Oral Surgeon', hi: 'ओरल सर्जन' },
+    specialization: { en: 'Oral & Maxillofacial Surgeon', hi: 'ओरल सर्जन' },
     experience: '18',
     description: { 
-      en: 'A leading oral surgeon, Dr. Joshi handles complex extractions, bone grafting, and reconstructive surgeries with unmatched precision.', 
-      hi: 'एक प्रमुख ओरल सर्जन, डॉ. जोशी जटिल निष्कर्षण, अस्थि ग्राफ्टिंग और पुनर्निर्माण सर्जरी को बेजोड़ सटीकता के साथ संभालते हैं।'
+      en: 'With 18 years of surgical excellence, Dr. Joshi handles complex extractions, bone grafting, and reconstructive surgeries with unparalleled precision and care.', 
+      hi: '18 वर्षों की सर्जिकल उत्कृष्टता के साथ, डॉ. जोशी जटिल निष्कर्षण और पुनर्निर्माण सर्जरी को बेजोड़ सटीकता के साथ संभालते हैं।'
     },
     image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800&auto=format&fit=crop',
+    tags: ['Oral Surgery', 'Bone Grafting', 'Extractions'],
   },
 ];
 
-function DoctorCard({ doctor, index }: { doctor: typeof DOCTORS[0]; index: number }) {
+function DoctorRow({ doctor, index }: { doctor: typeof DOCTORS[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const inView = useInView(ref, { once: true, margin: '-80px' });
   const { lang } = useLanguage();
+  const isEven = index % 2 === 0;
 
   return (
     <div
       ref={ref}
-      className="group relative overflow-hidden rounded-[20px] aspect-[3/4] cursor-pointer bg-[var(--bg-cream)] shadow-sm"
+      className="w-full flex flex-col md:flex-row overflow-hidden rounded-[28px] shadow-md"
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? 'none' : 'translateY(40px)',
-        transition: `all 0.8s var(--ease-smooth) ${index * 0.15}s`,
+        transform: inView ? 'none' : `translateY(50px)`,
+        transition: `all 0.9s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.12}s`,
+        minHeight: '420px',
       }}
     >
-      <img 
-        src={doctor.image} 
-        alt={doctor.name}
-        className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
-      />
-      
-      {/* Permanent subtle gradient at bottom so names would be visible, but we are hiding everything until hover as requested */}
-      <div className="absolute inset-0 bg-black/10 group-hover:bg-black/60 transition-colors duration-500" />
-      
-      {/* Default State (Name visible at bottom) */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-4">
-        <h3 className="font-serif text-[24px] text-white drop-shadow-md mb-1">
-          {doctor.name}
-        </h3>
-        <p className="text-[12px] uppercase tracking-[0.1em] text-white/90 font-medium drop-shadow-md">
-          {lang === 'en' ? doctor.specialization.en : doctor.specialization.hi}
-        </p>
+      {/* IMAGE SIDE */}
+      <div className={`relative w-full md:w-[45%] overflow-hidden ${isEven ? 'md:order-1' : 'md:order-2'}`} style={{ minHeight: '320px' }}>
+        <img
+          src={doctor.image}
+          alt={doctor.name}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        {/* Subtle overlay */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.12) 0%, transparent 60%)' }} />
       </div>
 
-      {/* Hover State Info */}
-      <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-center items-center text-center opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-75">
-        <h3 className="font-serif text-[28px] text-white mb-2 leading-tight">
+      {/* INFO PANEL (Milano Red background) */}
+      <div
+        className={`relative w-full md:w-[55%] flex flex-col justify-center p-10 md:p-14 ${isEven ? 'md:order-2' : 'md:order-1'}`}
+        style={{ backgroundColor: '#B81104' }}
+      >
+        {/* Decorative watermark number */}
+        <div
+          className="absolute top-6 right-8 font-serif italic select-none pointer-events-none"
+          style={{ fontSize: '120px', lineHeight: 1, color: 'rgba(255,255,255,0.06)', fontWeight: 400 }}
+        >
+          {String(index + 1).padStart(2, '0')}
+        </div>
+
+        {/* Experience badge */}
+        <div className="inline-flex items-center gap-2 mb-6">
+          <div className="w-8 h-[2px] bg-white/60" />
+          <span style={{ fontSize: '11px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>
+            {doctor.experience} {lang === 'en' ? 'Years Experience' : 'वर्षों का अनुभव'}
+          </span>
+        </div>
+
+        {/* Name */}
+        <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(26px, 3vw, 38px)', color: '#FFFFFF', fontWeight: 400, lineHeight: 1.15, marginBottom: '8px', letterSpacing: '-0.01em' }}>
           {doctor.name}
         </h3>
-        <p className="text-[12px] uppercase tracking-[0.1em] text-[#B81104] font-bold mb-4 bg-white px-3 py-1 rounded-full">
+
+        {/* Specialization */}
+        <p style={{ fontSize: '13px', textTransform: 'uppercase', letterSpacing: '0.16em', color: 'rgba(255,255,255,0.7)', fontWeight: 500, marginBottom: '4px' }}>
           {lang === 'en' ? doctor.specialization.en : doctor.specialization.hi}
         </p>
-        
-        <div className="w-12 h-[1px] bg-white/30 mx-auto mb-4" />
-        
-        <p className="text-[11px] text-white/80 uppercase tracking-widest mb-4">
+        <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', marginBottom: '24px', fontStyle: 'italic' }}>
           {doctor.qualifications}
         </p>
-        
-        <p className="text-[14px] text-white/90 leading-relaxed max-w-[90%] mx-auto line-clamp-4">
+
+        {/* Divider */}
+        <div style={{ width: '48px', height: '1px', backgroundColor: 'rgba(255,255,255,0.3)', marginBottom: '24px' }} />
+
+        {/* Description */}
+        <p style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', color: 'rgba(255,255,255,0.85)', lineHeight: 1.75, maxWidth: '460px', marginBottom: '28px' }}>
           {lang === 'en' ? doctor.description.en : doctor.description.hi}
         </p>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2">
+          {doctor.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-3 py-1.5 rounded-full"
+              style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.06em', backgroundColor: 'rgba(255,255,255,0.15)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.25)' }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -114,15 +148,17 @@ export default function Doctors() {
   const { t } = useLanguage();
 
   return (
-    <section id="doctors" className="section-py bg-white">
+    <section id="doctors" className="section-py bg-[#F8F9FA]">
       <div className="container-ora">
+
+        {/* Header */}
         <div
           ref={headerRef}
           className="text-center mb-16 max-w-[700px] mx-auto"
           style={{
             opacity: inView ? 1 : 0,
             transform: inView ? 'none' : 'translateY(30px)',
-            transition: 'all 0.8s var(--ease-smooth)',
+            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
           <div className="flex items-center justify-center gap-4 mb-6">
@@ -133,22 +169,24 @@ export default function Doctors() {
             <div className="w-8 h-[1px] bg-[#B81104]" />
           </div>
           <h2 className="display-lg text-[var(--text-dark)] mb-6">
-            {t('Meet the specialists behind', 'मुस्कान के पीछे के विशेषज्ञ')} <br />
-            <span className="italic text-[var(--text-gray)]">{t('your smile.', 'से मिलें।')}</span>
+            {t('Meet the specialists', 'मिलें विशेषज्ञों से')}{' '}
+            <span className="italic text-[var(--text-gray)]">{t('behind your smile.', 'जो आपकी मुस्कान गढ़ते हैं।')}</span>
           </h2>
           <p className="text-body-lg">
             {t(
-              'Every doctor at ORA is a specialist — not a generalist. Board-certified, precision-trained, and obsessed with outcomes.',
-              'ORA का हर डॉक्टर एक विशेषज्ञ है — सामान्य चिकित्सक नहीं। बोर्ड-प्रमाणित, सटीक-प्रशिक्षित, और परिणामों के प्रति जुनूनी।'
+              'Every doctor at ORA is a specialist — board-certified, precision-trained, and obsessed with outcomes.',
+              'ORA का हर डॉक्टर एक विशेषज्ञ है — बोर्ड-प्रमाणित और परिणामों के प्रति जुनूनी।'
             )}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Alternating doctor rows */}
+        <div className="flex flex-col gap-6">
           {DOCTORS.map((doc, i) => (
-            <DoctorCard key={doc.name} doctor={doc} index={i} />
+            <DoctorRow key={doc.name} doctor={doc} index={i} />
           ))}
         </div>
+
       </div>
     </section>
   );

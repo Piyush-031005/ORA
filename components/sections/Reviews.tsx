@@ -101,10 +101,9 @@ export default function Reviews() {
                     <img 
                       src={review.image} 
                       alt="Before" 
-                      className="w-full h-[210%] max-w-none object-cover"
-                      style={{ objectPosition: 'center 12%' }}
+                      className="absolute top-0 left-0 w-full h-[200%] object-cover object-top"
                     />
-                    <div className="absolute top-2 left-2 bg-black/70 text-white text-[9px] uppercase tracking-widest px-2 py-0.5 rounded backdrop-blur-sm">
+                    <div className="absolute top-2 left-2 bg-black/70 text-white text-[9px] uppercase tracking-widest px-2 py-0.5 rounded backdrop-blur-sm z-10">
                       Before
                     </div>
                   </div>
@@ -113,10 +112,9 @@ export default function Reviews() {
                     <img 
                       src={review.image} 
                       alt="After" 
-                      className="w-full h-[210%] max-w-none object-cover"
-                      style={{ objectPosition: 'center 88%' }}
+                      className="absolute bottom-0 left-0 w-full h-[200%] object-cover object-bottom"
                     />
-                    <div className="absolute top-2 left-2 bg-[#B81104]/80 text-white text-[9px] uppercase tracking-widest px-2 py-0.5 rounded backdrop-blur-sm">
+                    <div className="absolute top-2 left-2 bg-[#B81104]/85 text-white text-[9px] uppercase tracking-widest px-2 py-0.5 rounded backdrop-blur-sm z-10">
                       After
                     </div>
                   </div>

@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Environment, Float, AdaptiveDpr, OrbitControls } from '@react-three/drei';
+import { useGLTF, Environment, Float, AdaptiveDpr, OrbitControls, Bounds } from '@react-three/drei';
 import * as THREE from 'three';
 
 function ToothCrown() {
@@ -87,7 +87,6 @@ function ImplantRod() {
 function Scene() {
   return (
     <>
-      <color attach="background" args={['#B81104']} />
       <ambientLight intensity={0.9} />
       <directionalLight intensity={3.5} color="#ffffff" position={[4, 8, 6]} castShadow />
       <directionalLight intensity={2} color="#FFD0CC" position={[-6, 4, -4]} />
@@ -112,7 +111,7 @@ export default function HeroCanvas() {
     <Canvas
       camera={{ fov: 40, near: 0.1, far: 100, position: [0, 0, 8] }}
       dpr={[1, 2]}
-      gl={{ antialias: true, powerPreference: 'high-performance' }}
+      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ position: 'absolute', inset: 0 }}
     >
       <Scene />
