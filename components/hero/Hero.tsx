@@ -24,7 +24,7 @@ export default function Hero() {
       <div className="relative w-full h-[100dvh] min-h-[640px] flex flex-col md:flex-row">
 
         {/* LEFT — Text Panel */}
-        <div className="relative z-20 flex flex-col justify-center w-full md:w-[48%] px-8 md:pl-16 lg:pl-24 py-16 md:py-0">
+        <div className="relative z-20 flex flex-col justify-center w-full md:w-[48%] px-8 md:pl-20 lg:pl-32 py-16 md:py-0">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-10 h-[2px] bg-[#B81104]" />
             <span className="text-[11px] uppercase tracking-[0.2em] font-medium text-[#B81104]">

@@ -82,17 +82,46 @@ export default function Reviews() {
                 transition: `all 0.8s var(--ease-smooth) ${i * 0.15}s`,
               }}
             >
-              {/* Before/After Image — compact */}
-              <div className="w-full h-[160px] relative overflow-hidden bg-[#1A1A1A]">
-                <img 
-                  src={review.image} 
-                  alt={`${review.author} - Before and After`} 
-                  className="w-full h-full object-cover object-center opacity-90"
-                />
-                <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[9px] uppercase tracking-widest px-3 py-1 rounded-full backdrop-blur-sm">
-                  Before → After
+              {/* Before/After Image — cropped to show teeth specifically */}
+              {review.image.includes('case3.png') ? (
+                <div className="w-full h-[180px] relative overflow-hidden bg-[#1A1A1A] border-b border-[var(--border-light)]">
+                  <img 
+                    src={review.image} 
+                    alt={`${review.author} - Before and After`} 
+                    className="w-full h-full object-cover object-center opacity-95"
+                  />
+                  <div className="absolute bottom-2 left-2 bg-black/75 text-white text-[9px] uppercase tracking-widest px-2.5 py-1 rounded backdrop-blur-sm">
+                    Before → After
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="w-full h-[180px] flex relative overflow-hidden bg-[#1A1A1A] border-b border-[var(--border-light)]">
+                  {/* Left: Before (top half of image) */}
+                  <div className="w-1/2 h-full overflow-hidden relative border-r border-white/10">
+                    <img 
+                      src={review.image} 
+                      alt="Before" 
+                      className="w-full h-[210%] max-w-none object-cover"
+                      style={{ objectPosition: 'center 12%' }}
+                    />
+                    <div className="absolute top-2 left-2 bg-black/70 text-white text-[9px] uppercase tracking-widest px-2 py-0.5 rounded backdrop-blur-sm">
+                      Before
+                    </div>
+                  </div>
+                  {/* Right: After (bottom half of image) */}
+                  <div className="w-1/2 h-full overflow-hidden relative">
+                    <img 
+                      src={review.image} 
+                      alt="After" 
+                      className="w-full h-[210%] max-w-none object-cover"
+                      style={{ objectPosition: 'center 88%' }}
+                    />
+                    <div className="absolute top-2 left-2 bg-[#B81104]/80 text-white text-[9px] uppercase tracking-widest px-2 py-0.5 rounded backdrop-blur-sm">
+                      After
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Review Content */}
               <div className="p-6 flex-1 flex flex-col justify-between">

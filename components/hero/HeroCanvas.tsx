@@ -30,8 +30,8 @@ function ToothCrown() {
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={0.04} floatIntensity={0.12}>
-      <group ref={ref} scale={2.6} position={[0, 1.2, 0]}>
+    <Float speed={1.5} rotationIntensity={0.04} floatIntensity={0.08}>
+      <group ref={ref} scale={1.8} position={[0, 0.8, 0]}>
         <primitive object={cloned} />
       </group>
     </Float>
@@ -52,7 +52,7 @@ function ImplantRod() {
   });
 
   return (
-    <group ref={ref} position={[0, -1.0, 0]}>
+    <group ref={ref} position={[0, -0.8, 0]} scale={1.2}>
       {/* Abutment (top connector) */}
       <mesh castShadow>
         <cylinderGeometry args={[0.22, 0.18, 0.35, 32]} />
@@ -88,17 +88,18 @@ function Scene() {
   return (
     <>
       <color attach="background" args={['#B81104']} />
-      <ambientLight intensity={0.8} />
+      <ambientLight intensity={0.9} />
       <directionalLight intensity={3.5} color="#ffffff" position={[4, 8, 6]} castShadow />
       <directionalLight intensity={2} color="#FFD0CC" position={[-6, 4, -4]} />
       <spotLight intensity={5} color="#ffffff" position={[0, 10, 4]} angle={0.4} penumbra={0.8} />
       <pointLight color="#FF6B6B" intensity={1.5} position={[-3, -2, 3]} />
 
-      {/* Both models share same Y rotation via individual frames — group them for visual centering */}
-      <group position={[0, -0.3, 0]}>
-        <ToothCrown />
-        <ImplantRod />
-      </group>
+      <Bounds fit clip observe margin={1.25}>
+        <group>
+          <ToothCrown />
+          <ImplantRod />
+        </group>
+      </Bounds>
 
       <Environment preset="studio" />
       <AdaptiveDpr pixelated />
@@ -109,7 +110,7 @@ function Scene() {
 export default function HeroCanvas() {
   return (
     <Canvas
-      camera={{ fov: 38, near: 0.1, far: 100, position: [0, 1.2, 9] }}
+      camera={{ fov: 40, near: 0.1, far: 100, position: [0, 0, 8] }}
       dpr={[1, 2]}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       style={{ position: 'absolute', inset: 0 }}
