@@ -9,7 +9,7 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  age: z.number({ coerce: true }).min(1).max(120),
+  age: z.coerce.number().min(1).max(120),
   mobile: z.string().regex(/^[6-9]\d{9}$/, 'Enter a valid 10-digit Indian mobile number'),
   problem: z.string().min(3, 'Describe your concern'),
   doctor: z.string().optional(),
