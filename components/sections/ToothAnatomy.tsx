@@ -37,8 +37,8 @@ function AnatomyModel() {
   });
 
   return (
-    // Reset rotation to keep it straight horizontal
-    <group ref={ref} rotation={[0, 0, 0]}>
+    // Tilt slightly backward (-0.15 on x-axis) to counter the forward leaning
+    <group ref={ref} rotation={[-0.15, 0, 0]}>
       <primitive object={cloned} />
     </group>
   );
