@@ -32,13 +32,13 @@ function AnatomyModel() {
 
   useFrame(({ clock }) => {
     if (ref.current) {
-      ref.current.rotation.y = clock.getElapsedTime() * 0.3;
+      ref.current.rotation.y = clock.getElapsedTime() * 0.08; // Slower rotation
     }
   });
 
   return (
-    // Rotated to counter the natural diagonal slant, making it appear horizontal and from the front
-    <group ref={ref} rotation={[0.15, 0.0, 0.82]}>
+    // Reset rotation to keep it straight horizontal
+    <group ref={ref} rotation={[0, 0, 0]}>
       <primitive object={cloned} />
     </group>
   );
